@@ -30,5 +30,6 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/factory)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/abstractfactory)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/memallocatortracer)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/measuretime)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/crtp)
 
 
