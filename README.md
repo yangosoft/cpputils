@@ -7,6 +7,7 @@ C++14 utilites
 * measure time 
 * trace memory allocator
 * simple signal system
+* CRTP and devirtualization example. Needs to be completed.
 
 
 ## Building
