@@ -16,6 +16,7 @@ matrix:
 install:
         - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 90
         - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 90
+        - sudo apt install libgtest-dev
 
     # works on Precise and Trusty
     #- os: linux
