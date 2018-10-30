@@ -8,14 +8,34 @@ include (GNUInstallDirs)
 
 include_directories(inc)
 
-file(GLOB SRC_FILES "src/*.cpp")
 
+add_library(MemAllocatorTracer INTERFACE )
 
 file(GLOB HEADER_FILES  "inc/*.h")
 
 set( memallocatortracer_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/inc" CACHE STRING "Include-directories for signal" FORCE )
 
-install (FILES ${HEADER_FILES} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/cppsignal/memallocatortracer)
+add_library(CppUtils::MemAllocatorTracer ALIAS MemAllocatorTracer)
+
+
+install (TARGETS MemAllocatorTracer EXPORT MemAllocatorTracerTargets 
+         LIBRARY DESTINATION lib/cpputils/memallocatortracer
+         INCLUDES DESTINATION lib/cpputils/memallocatortracer)
+        
+install (EXPORT MemAllocatorTracerTargets 
+         DESTINATION lib/cpputils/cmake/MemAllocatorTracer
+         FILE   MemAllocatorTracer.cmake
+         NAMESPACE CppUtils::)
+         
+install (DIRECTORY inc/memallocatortracer 
+         DESTINATION lib/cpputils/memallocatortracer)
+
+include (CMakePackageConfigHelpers)
+write_basic_package_version_file(MemAllocatorTracerConfigVersion.cmake COMPATIBILITY SameMajorVersion)
+install (FILES MemAllocatorTracerConfig.cmake ${CMAKE_CURRENT_BINARY_DIR}/MemAllocatorTracerConfigVersion.cmake
+         DESTINATION lib/cpputils/cmake/MemAllocatorTracer)
+
+         
 if( ENABLE_TEST )
     message("Unit test enabled")
     include(${CMAKE_CURRENT_SOURCE_DIR}/test/CMakeLists.txt)

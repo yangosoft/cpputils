@@ -22,7 +22,6 @@ endif()
 if( ENABLE_TEST )
     message("Unit test enabled")
     enable_testing()
-    
 endif()
 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/signal)

@@ -8,6 +8,12 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pthread")
 
 enable_testing()
 find_package(GTest REQUIRED)
+
+if(NOT TARGET CppUtils::Factory)
+    find_package(Factory CONFIG REQUIRED)
+endif()
+
+
 include_directories(${GTEST_INCLUDE_DIRS} ${factory_INCLUDE_DIRS} )
 
 include_directories(inc)

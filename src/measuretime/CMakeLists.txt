@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.4)
+cmake_minimum_required(VERSION 3.8)
 
 project(MeasureTime VERSION ${CppUtils_VERSION_MAJOR}.${CppUtils_VERSION_MINOR} LANGUAGES CXX)
 
@@ -9,20 +9,34 @@ include (GNUInstallDirs)
 
 include_directories(inc)
 
-file(GLOB SRC_FILES
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
-)
-
+add_library(MeasureTime INTERFACE )
 
 file(GLOB HEADER_FILES   
     "${CMAKE_CURRENT_SOURCE_DIR}/inc/*.h"
 )
 
-install (FILES ${HEADER_FILES} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/cpputils/measuretime)
+add_library(CppUtils::MeasureTime ALIAS MeasureTime)
 
+
+install (TARGETS MeasureTime EXPORT MeasureTimeTargets 
+         LIBRARY DESTINATION lib/cpputils/measuretime
+         INCLUDES DESTINATION lib/cpputils/measuretime)
+        
+install (EXPORT MeasureTimeTargets 
+         DESTINATION lib/cpputils/cmake/MeasureTime
+         FILE   MeasureTime.cmake
+         NAMESPACE CppUtils::)
+         
+install (DIRECTORY inc/measuretime 
+         DESTINATION lib/cpputils/measuretime)
+
+include (CMakePackageConfigHelpers)
+write_basic_package_version_file(MeasureTimeConfigVersion.cmake COMPATIBILITY SameMajorVersion)
+install (FILES MeasureTimeConfig.cmake ${CMAKE_CURRENT_BINARY_DIR}/MeasureTimeConfigVersion.cmake
+         DESTINATION lib/cpputils/cmake/MeasureTime)
+
+         
 if( ENABLE_TEST )
     message("Unit test enabled")
     include(${CMAKE_CURRENT_SOURCE_DIR}/test/CMakeLists.txt)
 endif()
-
-add_executable(example_measure ${SRC_FILES} )

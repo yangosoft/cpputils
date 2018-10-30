@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.4)
+cmake_minimum_required(VERSION 3.8)
 
 project(Factory VERSION ${CppUtils_VERSION_MAJOR}.${CppUtils_VERSION_MINOR} LANGUAGES CXX)
 
@@ -11,10 +11,7 @@ include_directories(inc)
 
 
 
-file(GLOB SRC_FILES
-    "src/*.cpp"
-)
-
+add_library(Factory INTERFACE )
 
 file(GLOB HEADER_FILES   
     "inc/*.h"
@@ -22,10 +19,32 @@ file(GLOB HEADER_FILES
 
 set( factory_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/inc" CACHE STRING "Include-directories for factory" FORCE )
 
-install (FILES ${HEADER_FILES} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/cpputils/factory)
+
+
+
+
+add_library(CppUtils::Factory ALIAS Factory)
+
+
+install (TARGETS Factory EXPORT FactoryTargets 
+         LIBRARY DESTINATION lib/cpputils/factory
+         INCLUDES DESTINATION lib/cpputils/factory)
+        
+install (EXPORT FactoryTargets 
+         DESTINATION lib/cpputils/cmake/Factory
+         FILE   Factory.cmake
+         NAMESPACE CppUtils::)
+         
+install (DIRECTORY inc/factory 
+         DESTINATION lib/cpputils/factory)
+
+include (CMakePackageConfigHelpers)
+write_basic_package_version_file(FactoryConfigVersion.cmake COMPATIBILITY SameMajorVersion)
+install (FILES FactoryConfig.cmake ${CMAKE_CURRENT_BINARY_DIR}/FactoryConfigVersion.cmake
+         DESTINATION lib/cpputils/cmake/Factory)
+
+         
 if( ENABLE_TEST )
     message("Unit test enabled")
     include(${CMAKE_CURRENT_SOURCE_DIR}/test/CMakeLists.txt)
 endif()
-
-add_executable(example_factory ${SRC_FILES} )

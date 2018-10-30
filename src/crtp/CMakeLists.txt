@@ -20,7 +20,7 @@ file(GLOB HEADER_FILES
 install (FILES ${HEADER_FILES} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/cpputils/crtp)
 if( ENABLE_TEST )
     message("Unit test enabled")
-    include(${CMAKE_CURRENT_SOURCE_DIR}/test/CMakeLists.txt)
+#     include(${CMAKE_CURRENT_SOURCE_DIR}/test/CMakeLists.txt)
 endif()
 
 add_executable(example_crtp ${SRC_FILES} )

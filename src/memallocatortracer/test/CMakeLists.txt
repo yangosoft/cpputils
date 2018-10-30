@@ -11,7 +11,9 @@ find_package(GTest REQUIRED)
 include_directories( ${memallocatortrace_INCLUDE_DIRS} ${GTEST_INCLUDE_DIRS} "${CMAKE_CURRENT_SOURCE_DIR}/inc" )
 
 
-
+if(NOT TARGET CppUtils::MemAllocatorTracer)
+    find_package(Factory CONFIG REQUIRED)
+endif()
 
 
 file(GLOB SRCS ${CMAKE_CURRENT_SOURCE_DIR}/test/src/*.cpp)
