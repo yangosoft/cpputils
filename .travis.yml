@@ -8,7 +8,7 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
           packages:
-            - g++-6 libboost-all-dev
+            - g++-6 libboost-all-dev libgtest-dev
       env:
          - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6"
          - CC=gcc-6
@@ -16,7 +16,6 @@ matrix:
 install:
         - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 90
         - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 90
-        - sudo apt install libgtest-dev
 
     # works on Precise and Trusty
     #- os: linux
@@ -29,4 +28,8 @@ install:
       #env:
        #  - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
 script:
-    - "mkdir src/build ; cd src/build ; cmake .. -DENABLE_TEST=ON ; make test"
+    - "mkdir src/build"
+    - "cd src/build"
+    - "cmake .. -DENABLE_TEST=ON"
+    - "make"
+    - "make test"
