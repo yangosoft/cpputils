@@ -1,0 +1,31 @@
+language: cpp
+matrix:
+  include:
+    # works on Precise and Trusty
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-6 libboost-all-dev
+      env:
+         - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6"
+         - CC=gcc-6
+         - CXX=g++-6
+install:
+        - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 90
+        - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 90
+
+    # works on Precise and Trusty
+    #- os: linux
+      #addons:
+       # apt:
+        #  sources:
+         #   - ubuntu-toolchain-r-test
+          #packages:
+           # - g++-5
+      #env:
+       #  - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
+script:
+    - "mkdir src/build ; cd src/build ; cmake .. -DENABLE_TEST=ON ; make test"
