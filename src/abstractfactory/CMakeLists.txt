@@ -25,7 +25,7 @@ add_library(CppUtils::AbstractFactory ALIAS AbstractFactory)
 
 install (TARGETS AbstractFactory EXPORT AbstractFactoryTargets 
          LIBRARY DESTINATION lib/cpputils/factory
-         INCLUDES DESTINATION lib/cpputils/factory)
+         INCLUDES DESTINATION include/cpputils/factory)
         
 install (EXPORT AbstractFactoryTargets 
          DESTINATION lib/cpputils/cmake/AbstractFactory
@@ -33,12 +33,12 @@ install (EXPORT AbstractFactoryTargets
          NAMESPACE CppUtils::)
          
 install (DIRECTORY inc/factory 
-         DESTINATION lib/cpputils/factory)
+         DESTINATION include/cpputils)
 
 include (CMakePackageConfigHelpers)
 write_basic_package_version_file(AbstractFactoryConfigVersion.cmake COMPATIBILITY SameMajorVersion)
 install (FILES AbstractFactoryConfig.cmake ${CMAKE_CURRENT_BINARY_DIR}/AbstractFactoryConfigVersion.cmake
-         DESTINATION lib/cpputils/cmake/AbstractFactory)
+         DESTINATION lib/cmake/cpputils/AbstractFactory)
 
          
 if( ENABLE_TEST )

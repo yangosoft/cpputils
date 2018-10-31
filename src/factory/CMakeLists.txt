@@ -28,7 +28,7 @@ add_library(CppUtils::Factory ALIAS Factory)
 
 install (TARGETS Factory EXPORT FactoryTargets 
          LIBRARY DESTINATION lib/cpputils/factory
-         INCLUDES DESTINATION lib/cpputils/factory)
+         INCLUDES DESTINATION include/cpputils/factory)
         
 install (EXPORT FactoryTargets 
          DESTINATION lib/cpputils/cmake/Factory
@@ -36,12 +36,12 @@ install (EXPORT FactoryTargets
          NAMESPACE CppUtils::)
          
 install (DIRECTORY inc/factory 
-         DESTINATION lib/cpputils/factory)
+         DESTINATION include/cpputils)
 
 include (CMakePackageConfigHelpers)
 write_basic_package_version_file(FactoryConfigVersion.cmake COMPATIBILITY SameMajorVersion)
 install (FILES FactoryConfig.cmake ${CMAKE_CURRENT_BINARY_DIR}/FactoryConfigVersion.cmake
-         DESTINATION lib/cpputils/cmake/Factory)
+         DESTINATION lib/cmake/cpputils/Factory)
 
          
 if( ENABLE_TEST )

@@ -20,7 +20,7 @@ add_library(CppUtils::MemAllocatorTracer ALIAS MemAllocatorTracer)
 
 install (TARGETS MemAllocatorTracer EXPORT MemAllocatorTracerTargets 
          LIBRARY DESTINATION lib/cpputils/memallocatortracer
-         INCLUDES DESTINATION lib/cpputils/memallocatortracer)
+         INCLUDES DESTINATION include/cpputils/memallocatortracer)
         
 install (EXPORT MemAllocatorTracerTargets 
          DESTINATION lib/cpputils/cmake/MemAllocatorTracer
@@ -28,12 +28,12 @@ install (EXPORT MemAllocatorTracerTargets
          NAMESPACE CppUtils::)
          
 install (DIRECTORY inc/memallocatortracer 
-         DESTINATION lib/cpputils/memallocatortracer)
+         DESTINATION include/cpputils)
 
 include (CMakePackageConfigHelpers)
 write_basic_package_version_file(MemAllocatorTracerConfigVersion.cmake COMPATIBILITY SameMajorVersion)
 install (FILES MemAllocatorTracerConfig.cmake ${CMAKE_CURRENT_BINARY_DIR}/MemAllocatorTracerConfigVersion.cmake
-         DESTINATION lib/cpputils/cmake/MemAllocatorTracer)
+         DESTINATION lib/cmake/cpputils/MemAllocatorTracer)
 
          
 if( ENABLE_TEST )

@@ -18,6 +18,7 @@ include_directories(${GTEST_INCLUDE_DIRS} ${factory_INCLUDE_DIRS} )
 
 include_directories(inc)
 include_directories(${factory_INCLUDE_DIRS})
+include_directories("/usr/local/include")
 
 file(GLOB SRCS ${CMAKE_CURRENT_SOURCE_DIR}/test/src/*.cpp)
 message("FILES ${SRCS}")

@@ -20,7 +20,7 @@ add_library(CppUtils::MeasureTime ALIAS MeasureTime)
 
 install (TARGETS MeasureTime EXPORT MeasureTimeTargets 
          LIBRARY DESTINATION lib/cpputils/measuretime
-         INCLUDES DESTINATION lib/cpputils/measuretime)
+         INCLUDES DESTINATION include/cpputils/measuretime)
         
 install (EXPORT MeasureTimeTargets 
          DESTINATION lib/cpputils/cmake/MeasureTime
@@ -28,12 +28,12 @@ install (EXPORT MeasureTimeTargets
          NAMESPACE CppUtils::)
          
 install (DIRECTORY inc/measuretime 
-         DESTINATION lib/cpputils/measuretime)
+         DESTINATION include/cpputils)
 
 include (CMakePackageConfigHelpers)
 write_basic_package_version_file(MeasureTimeConfigVersion.cmake COMPATIBILITY SameMajorVersion)
 install (FILES MeasureTimeConfig.cmake ${CMAKE_CURRENT_BINARY_DIR}/MeasureTimeConfigVersion.cmake
-         DESTINATION lib/cpputils/cmake/MeasureTime)
+         DESTINATION lib/cmake/cpputils/MeasureTime)
 
          
 if( ENABLE_TEST )

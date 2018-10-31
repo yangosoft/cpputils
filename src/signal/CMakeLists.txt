@@ -26,7 +26,7 @@ add_library(CppUtils::Signal ALIAS Signal)
 
 install (TARGETS Signal EXPORT SignalTargets 
          LIBRARY DESTINATION lib/cpputils/signal
-         INCLUDES DESTINATION lib/cpputils/signal)
+         INCLUDES DESTINATION include/cpputils/signal)
         
 install (EXPORT SignalTargets 
          DESTINATION lib/cpputils/cmake/Signal
@@ -34,12 +34,12 @@ install (EXPORT SignalTargets
          NAMESPACE CppUtils::)
          
 install (DIRECTORY inc/signal 
-         DESTINATION lib/cpputils/signal)
+         DESTINATION include/cpputils)
 
 include (CMakePackageConfigHelpers)
 write_basic_package_version_file(SignalConfigVersion.cmake COMPATIBILITY SameMajorVersion)
 install (FILES SignalConfig.cmake ${CMAKE_CURRENT_BINARY_DIR}/SignalConfigVersion.cmake
-         DESTINATION lib/cpputils/cmake/Signal)
+         DESTINATION lib/cmake/cpputils/Signal)
 
          
 if( ENABLE_TEST )
