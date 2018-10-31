@@ -16,7 +16,7 @@ file(GLOB HEADER_FILES
     "inc/sockets/*.h"
 )
 
-add_library(Sockets SHARED src/example.cpp )
+add_library(Sockets SHARED src/socketclient.cpp )
 
 set_target_properties(Sockets PROPERTIES VERSION ${CppUtils_VERSION_MAJOR})
 set_target_properties(Sockets PROPERTIES SOVERSION ${CppUtils_VERSION_MAJOR})

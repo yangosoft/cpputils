@@ -1,5 +1,5 @@
 #include <limits.h>
-#include <cpputils/sockets/example.h>
+#include <cpputils/sockets/socketclient.h>
 #include <gtest/gtest.h>
 namespace
 {
@@ -8,9 +8,12 @@ namespace
 TEST(ExampleTests, TestGet)
 {
 
-    CppUtils::example ex;
+    CppUtils::TSocketClient s("localhost",8999);
+    s.tryConnect();
+    bool ok = s.writeData("Hello world!");
     
-    EXPECT_NE(1, 2);
+    
+    EXPECT_TRUE(ok);
 }
 
 };
