@@ -40,13 +40,13 @@
 
 using namespace CppUtils;
 
-TSocketClient::TSocketClient(std::string ip, uint16_t port) :
+SocketClient::SocketClient(std::string ip, uint16_t port) :
 m_host(std::move(ip)),
 m_port(port)
 {
 }
 
-bool TSocketClient::tryConnect()
+bool SocketClient::tryConnect()
 {
     std::cout << __PRETTY_FUNCTION__ << std::endl;
     int sockfd = 0;
@@ -92,13 +92,13 @@ bool TSocketClient::tryConnect()
     return true;
 }
 
-ssize_t TSocketClient::writeData(const char *data, uint32_t size) const
+ssize_t SocketClient::writeData(const char *data, uint32_t size) const
 {
     ssize_t n = write(m_fdSocket, data, size);
     return n;
 }
 
-ssize_t TSocketClient::readData(char* buffer, ssize_t size) const
+ssize_t SocketClient::readData(char* buffer, ssize_t size) const
 {
     std::cout << __PRETTY_FUNCTION__ << std::endl;
 
@@ -114,13 +114,13 @@ ssize_t TSocketClient::readData(char* buffer, ssize_t size) const
     return len;
 }
 
-bool TSocketClient::writeData(const std::string& data) const
+bool SocketClient::writeData(const std::string& data) const
 {
     ssize_t n = writeData(data.c_str(),data.size());
     return (n == static_cast<ssize_t>(data.size()));
 }
 
-void TSocketClient::disconnect()
+void SocketClient::disconnect()
 {
     close(m_fdSocket);
 }

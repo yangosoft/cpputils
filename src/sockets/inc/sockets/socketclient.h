@@ -13,15 +13,15 @@ namespace CppUtils
 {
 
 
-class TSocketClient  {
+class SocketClient  {
 public:
-    TSocketClient(std::string ip, uint16_t port);
+    SocketClient(std::string ip, uint16_t port);
     bool tryConnect();
     void disconnect();
     ssize_t writeData(const char *data, uint32_t size) const;    
     bool writeData(const std::string &data) const ;    
     ssize_t readData(char *buffer, ssize_t size) const;
-    virtual ~TSocketClient() = default;
+    virtual ~SocketClient() = default;
 
 private:
 
