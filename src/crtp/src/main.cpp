@@ -7,7 +7,7 @@ template <typename T>
 class Curve
 {
 public:
-    float get_point(float x) 
+    float getPoint(float x) 
     {
         return impl().adjust(x) * x;
     }
@@ -38,30 +38,30 @@ class Curve
 {
 public:
     virtual float adjust(float x) const = 0;
-    float get_point(float x) const
+    float getPoint(float x) const
     {
         return adjust(x) * x;
     }
     
-    virtual ~Curve(){};
+    virtual ~Curve() = default;
 };
 
 class Simple final: public Curve
 {
 public:
-    float adjust( float x ) const override final
+    float adjust( float x ) const final
     {
         return x*0.8;
     }
-    virtual ~Simple() override final {};
+    ~Simple() final = default;
 };
 
 #endif
 
 
-int main(int , char**)
+int main(int /*argc*/ , char** /*argv*/)
 {
     Simple s;
-    std::cout << s.get_point(1) << std::endl;
+    std::cout << s.getPoint(1) << std::endl;
     return 0;
 }

@@ -40,8 +40,8 @@
 
 using namespace CppUtils;
 
-TSocketClient::TSocketClient(const std::string& IP, uint16_t port) :
-m_host(IP),
+TSocketClient::TSocketClient(std::string ip, uint16_t port) :
+m_host(std::move(ip)),
 m_port(port)
 {
 }
@@ -51,9 +51,8 @@ bool TSocketClient::tryConnect()
     std::cout << __PRETTY_FUNCTION__ << std::endl;
     int sockfd = 0;
 
-    struct sockaddr_in serv_addr
-    {
-    };
+    struct sockaddr_in servAddr{};
+    
 
     //Puntero a esctructura hostent que nos permitirá
     //resolver un nombre de host a IP
@@ -67,8 +66,8 @@ bool TSocketClient::tryConnect()
 
 
 
-    serv_addr.sin_family = AF_INET;
-    serv_addr.sin_port = htons(m_port);
+    servAddr.sin_family = AF_INET;
+    servAddr.sin_port = htons(m_port);
 
     // Debemos resolver el nombre del host a una IP
     he = gethostbyname(m_host.c_str());
@@ -79,9 +78,9 @@ bool TSocketClient::tryConnect()
     }
 
 
-    serv_addr.sin_addr = *(reinterpret_cast<struct in_addr *> (he->h_addr));
+    servAddr.sin_addr = *(reinterpret_cast<struct in_addr *> (he->h_addr));
 
-    if (connect(sockfd, reinterpret_cast<struct sockaddr *> (&serv_addr), sizeof (serv_addr)) < 0)
+    if (connect(sockfd, reinterpret_cast<struct sockaddr *> (&servAddr), sizeof (servAddr)) < 0)
     {
         std::cout << "Error connecting socket" << std::endl;
         return false;
@@ -118,7 +117,7 @@ ssize_t TSocketClient::readData(char* buffer, ssize_t size) const
 bool TSocketClient::writeData(const std::string& data) const
 {
     ssize_t n = writeData(data.c_str(),data.size());
-    return (n == data.size());
+    return (n == static_cast<ssize_t>(data.size()));
 }
 
 void TSocketClient::disconnect()

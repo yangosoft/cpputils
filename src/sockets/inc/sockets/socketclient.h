@@ -15,7 +15,7 @@ namespace CppUtils
 
 class TSocketClient  {
 public:
-    TSocketClient(const std::string& IP, uint16_t port);
+    TSocketClient(std::string ip, uint16_t port);
     bool tryConnect();
     void disconnect();
     ssize_t writeData(const char *data, uint32_t size) const;    
