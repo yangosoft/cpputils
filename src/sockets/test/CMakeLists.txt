@@ -1,0 +1,38 @@
+cmake_minimum_required(VERSION 3.4)
+project(SocketsTest)
+
+
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pthread")
+
+
+enable_testing()
+find_package(GTest REQUIRED)
+
+
+
+FIND_LIBRARY(SOCKETS_LIBRARIES NAMES "Sockets" HINTS "/usr/local/lib/cpputils/sockets/")
+
+
+if(NOT TARGET CppUtils::Sockets)
+    message("Not target")
+    find_package(Sockets REQUIRED)
+endif()
+
+
+include_directories(${GTEST_INCLUDE_DIRS} ${sockets_INCLUDE_DIRS} )
+
+include_directories(inc)
+include_directories(${sockets_INCLUDE_DIRS})
+
+file(GLOB SRCS ${CMAKE_CURRENT_SOURCE_DIR}/test/src/*.cpp)
+message("LIBS  ${SOCKETS_LIBRARIES} ${GTEST_BOTH_LIBRARIES}")
+
+add_executable(Test_sockets ${SRCS})
+
+target_link_libraries(Test_sockets ${GTEST_BOTH_LIBRARIES} ${SOCKETS_LIBRARIES})
+
+add_test(SocketsTests Test_sockets --gtest_output=xml)
+
+# install(TARGETS testsignal DESTINATION bin)
+
