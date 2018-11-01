@@ -8,26 +8,28 @@
 #include <string>
 #include <thread>
 
+#include "isocket.h"
+
 
 namespace CppUtils
 {
 
 
-class SocketClient  {
+class SocketClient : public ISocket  {
 public:
     SocketClient(std::string ip, uint16_t port);
     bool tryConnect();
     void disconnect();
-    ssize_t writeData(const char *data, uint32_t size) const;    
-    bool writeData(const std::string &data) const ;    
-    ssize_t readData(char *buffer, ssize_t size) const;
+    ssize_t writeData(const char *data, uint32_t size) const override;    
+    bool writeData(const std::string &data) const override ;    
+    ssize_t readData(char *buffer, ssize_t size) const override;
     virtual ~SocketClient() = default;
 
 private:
 
     std::string m_host;
     uint16_t m_port;
-    int32_t m_fdSocket;
+    
     
 //    void *run( );
 //    static void *run_helper(void *context)

@@ -41,8 +41,9 @@
 using namespace CppUtils;
 
 SocketClient::SocketClient(std::string ip, uint16_t port) :
+ISocket(-1),
 m_host(std::move(ip)),
-m_port(port)
+m_port(port) 
 {
 }
 
@@ -92,35 +93,3 @@ bool SocketClient::tryConnect()
     return true;
 }
 
-ssize_t SocketClient::writeData(const char *data, uint32_t size) const
-{
-    ssize_t n = write(m_fdSocket, data, size);
-    return n;
-}
-
-ssize_t SocketClient::readData(char* buffer, ssize_t size) const
-{
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-
-
-    ssize_t len = read(m_fdSocket, buffer, size);
-    if (len <= 0)
-    {
-        //Client disconnected
-        std::cout << "Client " << m_fdSocket << " disconnected" << std::endl;
-        close(m_fdSocket);
-    }
-
-    return len;
-}
-
-bool SocketClient::writeData(const std::string& data) const
-{
-    ssize_t n = writeData(data.c_str(),data.size());
-    return (n == static_cast<ssize_t>(data.size()));
-}
-
-void SocketClient::disconnect()
-{
-    close(m_fdSocket);
-}
