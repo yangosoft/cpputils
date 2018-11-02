@@ -28,8 +28,8 @@ install (TARGETS AbstractFactory EXPORT AbstractFactoryTargets
          INCLUDES DESTINATION include/cpputils/factory)
         
 install (EXPORT AbstractFactoryTargets 
-         DESTINATION lib/cpputils/cmake/AbstractFactory
-         FILE   AbstractFactory.cmake
+         DESTINATION lib/cmake/cpputils/AbstractFactory
+         FILE   AbstractFactoryTargets.cmake
          NAMESPACE CppUtils::)
          
 install (DIRECTORY inc/factory 

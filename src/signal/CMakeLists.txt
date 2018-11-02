@@ -30,7 +30,7 @@ install (TARGETS Signal EXPORT SignalTargets
         
 install (EXPORT SignalTargets 
          DESTINATION lib/cpputils/cmake/Signal
-         FILE   Signal.cmake
+         FILE   SignalTargets.cmake
          NAMESPACE CppUtils::)
          
 install (DIRECTORY inc/signal 

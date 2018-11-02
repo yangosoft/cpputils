@@ -24,7 +24,7 @@ install (TARGETS MeasureTime EXPORT MeasureTimeTargets
         
 install (EXPORT MeasureTimeTargets 
          DESTINATION lib/cpputils/cmake/MeasureTime
-         FILE   MeasureTime.cmake
+         FILE   MeasureTimeTargets.cmake
          NAMESPACE CppUtils::)
          
 install (DIRECTORY inc/measuretime 

@@ -24,7 +24,7 @@ install (TARGETS MemAllocatorTracer EXPORT MemAllocatorTracerTargets
         
 install (EXPORT MemAllocatorTracerTargets 
          DESTINATION lib/cpputils/cmake/MemAllocatorTracer
-         FILE   MemAllocatorTracer.cmake
+         FILE   MemAllocatorTracerTargets.cmake
          NAMESPACE CppUtils::)
          
 install (DIRECTORY inc/memallocatortracer 

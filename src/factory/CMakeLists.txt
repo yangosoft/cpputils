@@ -32,7 +32,7 @@ install (TARGETS Factory EXPORT FactoryTargets
         
 install (EXPORT FactoryTargets 
          DESTINATION lib/cpputils/cmake/Factory
-         FILE   Factory.cmake
+         FILE   FactoryTargets.cmake
          NAMESPACE CppUtils::)
          
 install (DIRECTORY inc/factory 

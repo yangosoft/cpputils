@@ -52,20 +52,23 @@ install (TARGETS Sockets EXPORT SocketsTargets
          INCLUDES DESTINATION include/cpputils
          PUBLIC_HEADER DESTINATION include/cpputils)
         
+message ("SocketsTargets ${SocketsTargets}")
 install (EXPORT SocketsTargets 
+         FILE   SocketsTargets.cmake
+         NAMESPACE CppUtils::
          DESTINATION lib/cmake/cpputils/Sockets
-         FILE   Sockets.cmake
-         NAMESPACE CppUtils::)
+         )
          
-install (DIRECTORY inc/sockets 
-         DESTINATION include/cpputils)
+# install (DIRECTORY inc/sockets 
+#          DESTINATION include/cpputils)
 
 include (CMakePackageConfigHelpers)
-write_basic_package_version_file(SocketsConfigVersion.cmake COMPATIBILITY SameMajorVersion)
-install (FILES SocketsConfig.cmake ${CMAKE_CURRENT_BINARY_DIR}/SocketsConfigVersion.cmake
+write_basic_package_version_file("SocketsConfigVersion.cmake" VERSION  ${CppUtils_VERSION_MAJOR} COMPATIBILITY SameMajorVersion)
+install (FILES "SocketsConfig.cmake" ${CMAKE_CURRENT_BINARY_DIR}/SocketsConfigVersion.cmake
          DESTINATION lib/cmake/cpputils/Sockets)
 
 
+         
 set (SOCKETS_LIBRARIES Sockets )
          
 if( ENABLE_TEST )
