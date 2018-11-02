@@ -45,12 +45,12 @@ sudo make install
 cd ../example/tcpsocket
 mkdir build
 cd build
-cmake ..
+cmake .. -DENABLE_GNUTLS=ON
 make
 cd ../../tcpsecuresocket
 mkdir build
 cd build
-cmake ..
+cmake .. -DENABLE_GNUTLS=ON
 make
 cp ../../certs/* .
 ~~~~
