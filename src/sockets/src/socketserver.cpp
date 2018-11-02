@@ -23,57 +23,52 @@
 using namespace CppUtils;
 
 
-SocketServer::SocketServer(uint32_t port): m_port(port), fdSocket(-1)
+
+SocketServer::SocketServer(uint32_t port, OnNewClientCallback onNewClientCallback): m_port(port), m_fdSocket(-1), fCallback(onNewClientCallback)
 {
-    int fd_sck 	 	= 0;
-
-
-    //Estructura sockaddr_in
-    //contiene el tipo de socket que queremos abrir SOCK_STREAM (TCP)
-    //el puerto
-    //la IP (INADDR_ANY) escuchamos en cualquier interfaz de red
+    int fdSck 	 	= 0;
     struct sockaddr_in serv_addr{};
 
     
 
-        fd_sck = socket(AF_INET, SOCK_STREAM, 0);
+    fdSck = socket(AF_INET, SOCK_STREAM, 0);
     
 //        fd_sck = socket(AF_INET, SOCK_STREAM | SOCK_NONBLOCK , 0);
 
-       
     serv_addr.sin_family 	= AF_INET;
     serv_addr.sin_addr.s_addr 	= htonl(INADDR_ANY); //Importantísimo usar la familia  de funciones hton (hardware to network)
     serv_addr.sin_port 		= htons( m_port );
 
    
-    int status = bind(fd_sck, reinterpret_cast<struct sockaddr*>(&serv_addr), sizeof(serv_addr));
+    int status = bind(fdSck, reinterpret_cast<struct sockaddr*>(&serv_addr), sizeof(serv_addr));
     if ( 0 != status )
     {
         std::cout << "Something went wrong in bind" << std::endl;
        
         return;
     }
-    fdSocket = fd_sck;
+    m_fdSocket = fdSck;
 }
 
-void SocketServer::serverListen()
+int SocketServer::serverListen()
 {
-    int32_t status = listen(fdSocket, 10);
+    int32_t status = listen(m_fdSocket, 10);
     if ( 0 != status )
     {
-        std::cout << "Something went wrong in listen" << std::endl;
-        return;
+        std::cout << "Something went wrong in listen" << std::endl;  
     }
-}
-
-
-//To an interface
-void SocketServer::onNewClient(int32_t fdClient)
-{
     
+    return status;
 }
+
 
 void SocketServer::disconnect()
 {
-    close(fdSocket);
+    close(m_fdSocket);
+}
+
+void SocketServer::doAccept()
+{
+    int32_t fdClient = accept(m_fdSocket, nullptr, nullptr);
+    fCallback(fdClient);
 }

@@ -1,15 +1,17 @@
-#include "sockets/isocket.h"
 
+#include <cstdio>
 #include <iostream>
+
+#include "sockets/isocket.h"
 
 using namespace CppUtils;
 
-ISocket::ISocket(int32_t fdSocket): m_fdSocket(fdSocket){{
+ISocket::ISocket(int32_t fdSocket): m_fdSocket(fdSocket){
 
 }
 
 
-ssize_t ISocket::writeData(const char *data, uint32_t size) const
+ssize_t ISocket::writeData(const char *data, size_t size) const
 {
     ssize_t n = write(m_fdSocket, data, size);
     return n;
@@ -37,7 +39,28 @@ bool ISocket::writeData(const std::string& data) const
     return (n == static_cast<ssize_t>(data.size()));
 }
 
+
+ssize_t ISocket::readData(std::string &data) const
+{
+    char buffer[256]{};
+    ssize_t n = readData(buffer,sizeof(buffer));
+    if ( n > 0 )
+    {
+        buffer[n] = '\0';
+        data = std::string(buffer);
+    }
+    
+    return n;
+    
+}
+
 void ISocket::disconnect()
 {
     close(m_fdSocket);
 }
+
+int32_t ISocket::getFdSocket() const
+{
+    return m_fdSocket;
+}
+

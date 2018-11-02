@@ -16,7 +16,8 @@ file(GLOB HEADER_FILES
     "inc/sockets/*.h"
 )
 
-add_library(Sockets SHARED src/socketclient.cpp
+add_library(Sockets SHARED 
+src/socketclient.cpp
 src/socketserver.cpp
 src/isocket.cpp)
 
@@ -35,12 +36,12 @@ add_library(CppUtils::Sockets ALIAS Sockets)
 
 
 install (TARGETS Sockets EXPORT SocketsTargets 
-         LIBRARY DESTINATION lib/cpputils/sockets
+         LIBRARY DESTINATION lib/cpputils
          INCLUDES DESTINATION include/cpputils
          PUBLIC_HEADER DESTINATION include/cpputils)
         
 install (EXPORT SocketsTargets 
-         DESTINATION lib/cpputils/cmake/Sockets
+         DESTINATION lib/cmake/cpputils/Sockets
          FILE   Sockets.cmake
          NAMESPACE CppUtils::)
          
