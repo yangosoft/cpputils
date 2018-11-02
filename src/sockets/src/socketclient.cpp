@@ -1,27 +1,9 @@
 
-
-#include <netinet/in.h>
 #include <arpa/inet.h>
-
-
-#include <unistd.h>
-
-#include <sys/types.h>
-
-#include <pthread.h>
-#include <cstring>
-#include <iostream>
-
-
-#include <arpa/inet.h>
-#include <sys/types.h>
-#include <netinet/in.h>
 #include <netdb.h>
-
-#include <cstdlib>
+#include <netinet/in.h>
+#include <sys/types.h>
 #include <unistd.h>
-#include <arpa/inet.h>
-
 
 #include <cerrno>
 #include <chrono>

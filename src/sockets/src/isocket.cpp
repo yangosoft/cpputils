@@ -43,8 +43,8 @@ bool ISocket::writeData(const std::string& data) const
 ssize_t ISocket::readData(std::string &data) const
 {
     char buffer[256]{};
-    ssize_t n = readData(buffer,sizeof(buffer));
-    if ( n > 0 )
+    size_t n = readData(buffer,sizeof(buffer));
+    if(( n > 0 ) && ( n < sizeof(buffer)))
     {
         buffer[n] = '\0';
         data = std::string(buffer);

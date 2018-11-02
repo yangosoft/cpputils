@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/dzayas/custom/cpputils-github/src/example/tcpsecuresocket/main.cpp
+iostream
+-
+string
+-
+thread
+-
+cpputils/sockets/securesocket.h
+-
+cpputils/sockets/socketclient.h
+-
+cpputils/sockets/securesocketserver.h
+-
+

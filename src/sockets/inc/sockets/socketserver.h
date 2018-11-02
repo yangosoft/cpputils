@@ -5,11 +5,12 @@
 #include <functional>
 
 
+#include "isocket.h"
 
 namespace CppUtils
 {
 
-using OnNewClientCallback =  std::function< void(int32_t fdClient) >;
+using OnNewClientCallback =  std::function< void(ISocket fdClient) >;
 
 
 class SocketServer  {

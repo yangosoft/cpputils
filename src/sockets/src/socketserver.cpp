@@ -1,18 +1,12 @@
 
 #include <arpa/inet.h>
-
-#include <netinet/in.h>
-#include <arpa/inet.h>
 #include <cstdio>
 #include <cstdlib>
-#include <unistd.h>
-#include <cerrno>
-#include <sys/types.h>
-#include <ctime>
-#include <pthread.h>
 #include <cstring>
-#include <iostream>
-
+#include <ctime>
+#include <netinet/in.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 #include <iostream>
 
@@ -24,10 +18,10 @@ using namespace CppUtils;
 
 
 
-SocketServer::SocketServer(uint32_t port, OnNewClientCallback onNewClientCallback): m_port(port), m_fdSocket(-1), fCallback(onNewClientCallback)
+SocketServer::SocketServer(uint32_t port, OnNewClientCallback onNewClientCallback): m_port(port), m_fdSocket(-1), fCallback(std::move(onNewClientCallback))
 {
     int fdSck 	 	= 0;
-    struct sockaddr_in serv_addr{};
+    struct sockaddr_in servAddr{};
 
     
 
@@ -35,12 +29,12 @@ SocketServer::SocketServer(uint32_t port, OnNewClientCallback onNewClientCallbac
     
 //        fd_sck = socket(AF_INET, SOCK_STREAM | SOCK_NONBLOCK , 0);
 
-    serv_addr.sin_family 	= AF_INET;
-    serv_addr.sin_addr.s_addr 	= htonl(INADDR_ANY); //Importantísimo usar la familia  de funciones hton (hardware to network)
-    serv_addr.sin_port 		= htons( m_port );
+    servAddr.sin_family 	= AF_INET;
+    servAddr.sin_addr.s_addr 	= htonl(INADDR_ANY); //Importantísimo usar la familia  de funciones hton (hardware to network)
+    servAddr.sin_port 		= htons( m_port );
 
    
-    int status = bind(fdSck, reinterpret_cast<struct sockaddr*>(&serv_addr), sizeof(serv_addr));
+    int status = bind(fdSck, reinterpret_cast<struct sockaddr*>(&servAddr), sizeof(servAddr));
     if ( 0 != status )
     {
         std::cout << "Something went wrong in bind" << std::endl;
@@ -70,5 +64,6 @@ void SocketServer::disconnect()
 void SocketServer::doAccept()
 {
     int32_t fdClient = accept(m_fdSocket, nullptr, nullptr);
-    fCallback(fdClient);
+    ISocket s(fdClient);
+    fCallback(std::move(s));
 }

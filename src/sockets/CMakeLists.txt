@@ -8,23 +8,35 @@ include (GNUInstallDirs)
 
 include_directories(inc)
 
-file(GLOB SRC_FILES
-    "src/*.cpp"
-)
 
-file(GLOB HEADER_FILES   
-    "inc/sockets/*.h"
-)
 
-add_library(Sockets SHARED 
-src/socketclient.cpp
+
+set(HEADER_FILES inc/sockets/socketclient.h
+inc/sockets/socketserver.h
+inc/sockets/isocket.h)
+
+set (SOURCE_FILES src/socketclient.cpp
 src/socketserver.cpp
+
 src/isocket.cpp)
+
+if( ENABLE_GNUTLS )
+    list(APPEND SOURCE_FILES "src/securesocketserver.cpp" 
+"src/securesocket.cpp" )
+    
+    list(APPEND HEADER_FILES "inc/sockets/securesocketserver.h"
+"inc/sockets/securesocket.h" )
+endif()
+
+add_library(Sockets SHARED ${SOURCE_FILES})
+
+
+
 
 set_target_properties(Sockets PROPERTIES VERSION ${CppUtils_VERSION_MAJOR})
 set_target_properties(Sockets PROPERTIES SOVERSION ${CppUtils_VERSION_MAJOR})
 
-set_target_properties(Sockets PROPERTIES PUBLIC_HEADER ${HEADER_FILES})
+#set_target_properties(Sockets PROPERTIES PUBLIC_HEADER ${HEADER_FILES})
 
 set( sockets_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/inc" CACHE STRING "Include-directories for sockets" FORCE )
 

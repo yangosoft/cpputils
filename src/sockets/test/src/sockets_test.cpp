@@ -14,9 +14,9 @@ TEST(ExampleTests, TestGet)
     s.tryConnect();
    
     
-    CppUtils::SocketServer server(8999, []( int32_t fdSocket ){ 
+    CppUtils::SocketServer server(8999, []( ISocket& client ){ 
         
-        CppUtils::ISocket client(fdSocket);
+        
         
         char buffer[64];
         

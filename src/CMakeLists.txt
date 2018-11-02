@@ -13,6 +13,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 
 set(ENABLE_TEST OFF CACHE BOOL "Enable Google Test")
+set(ENABLE_GNUTLS OFF CACHE BOOL "Enable GNUTLS link")
 
 if( NOT CMAKE_BUILD_TYPE )
   set( CMAKE_BUILD_TYPE Debug CACHE STRING       "Choose the type of build, options are: None Debug Release RelWithDebInfo
@@ -31,6 +32,6 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/memallocatortracer)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/measuretime)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/crtp)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/sockets)
-# add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/example/tcpsocket)
+#add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/example/tcpsecuresocket)
 
 

@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/dzayas/custom/cpputils-github/src/example/tcpsecuresocket/build",
+  "command": "/usr/bin/c++     -Wall -pthread   -std=gnu++14 -o CMakeFiles/tcpSecureExample.dir/main.cpp.o -c /home/dzayas/custom/cpputils-github/src/example/tcpsecuresocket/main.cpp",
+  "file": "/home/dzayas/custom/cpputils-github/src/example/tcpsecuresocket/main.cpp"
+}
+]
