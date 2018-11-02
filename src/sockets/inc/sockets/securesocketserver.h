@@ -13,7 +13,7 @@
 namespace CppUtils
 {
 
-using OnNewClientCallback =  std::function< void(ISocket fdClient) >;
+using OnNewClientCallback =  std::function< void(ISocket& fdClient) >;
 
 
 class SecureSocketServer  {

@@ -9,6 +9,9 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # FIND_LIBRARY(SOCKETS_LIBRARIES NAMES "Sockets" HINTS "/usr/local/lib/cpputils/sockets/")
 
 
+if( ENABLE_GNUTLS )
+find_package (GnuTLS)
+endif()
 
 # find_package(Sockets REQUIRED HINTS "/usr/local/lib/cmake/cpputils/" )
 find_package (Threads)
@@ -22,4 +25,4 @@ message("LIBS  ${SOCKETS_LIBRARIES2} ${CMAKE_THREAD_LIBS_INIT}")
 
 add_executable(tcpExample main.cpp)
 
-target_link_libraries(tcpExample ${CMAKE_THREAD_LIBS_INIT} ${SOCKETS_LIBRARIES2} )
+target_link_libraries(tcpExample ${CMAKE_THREAD_LIBS_INIT} ${SOCKETS_LIBRARIES2} ${GNUTLS_LIBRARIES})

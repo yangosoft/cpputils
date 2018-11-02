@@ -13,10 +13,10 @@
 
 void runServer()
 {
-    CppUtils::SocketServer server(8999, []( int32_t fdSocket ){ 
+    CppUtils::SocketServer server(8999, []( CppUtils::ISocket& client ){ 
         
-        std::cout << "* New client: " << fdSocket << std::endl;
-        CppUtils::ISocket client(fdSocket);
+        std::cout << "* New client: " << client.getFdSocket() << std::endl;
+        
         std::string data;
         int n = client.readData(data);
         

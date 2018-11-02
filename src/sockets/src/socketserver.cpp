@@ -65,5 +65,5 @@ void SocketServer::doAccept()
 {
     int32_t fdClient = accept(m_fdSocket, nullptr, nullptr);
     ISocket s(fdClient);
-    fCallback(std::move(s));
+    fCallback(s);
 }

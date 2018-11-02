@@ -34,11 +34,11 @@ ssize_t SecureSocket::readData(char* buffer, ssize_t size) const
 //                                        "data(%d). Closing the connection.\n\n",
 //                                        ret);
     
-    if (len <= 0)
+    if (len == 0)
     {
         //Client disconnected
         std::cout << "Client " << m_fdSocket << " disconnected" << std::endl;
-        close(m_fdSocket);
+//        close(m_fdSocket);
     }
 
     return len;
@@ -52,6 +52,7 @@ bool SecureSocket::writeData(const std::string& data) const
 
 ssize_t SecureSocket::readData(std::string &data) const
 {
+    std::cout << __PRETTY_FUNCTION__ << std::endl;
     char buffer[256]{};
     size_t n = readData(buffer, sizeof (buffer));
     if ((n > 0) && (n < sizeof (buffer)))
@@ -66,7 +67,8 @@ ssize_t SecureSocket::readData(std::string &data) const
 
 void SecureSocket::disconnect()
 {
-    gnutls_bye(m_session, GNUTLS_SHUT_WR);
+    std::cout << __PRETTY_FUNCTION__ << std::endl;
+//    gnutls_bye(m_session, GNUTLS_SHUT_WR);
     close(m_fdSocket);
 }
 
