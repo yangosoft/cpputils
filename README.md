@@ -26,7 +26,35 @@ cd build
 cmake ../
 make
 sudo make install
+cd ../example/tcpsocket
+mkdir build
+cd build
+cmake ..
+make
 ~~~~
+
+If you want to compile with GNUTLS >= 3.5
+
+~~~~
+cd cpputils/src
+mkdir build
+cd build
+cmake ../ -DENABLE_GNUTLS=ON
+make
+sudo make install
+cd ../example/tcpsocket
+mkdir build
+cd build
+cmake ..
+make
+cd ../../tcpsecuresocket
+mkdir build
+cd build
+cmake ..
+make
+cp ../../certs/* .
+~~~~
+
 
 
 ## Future work
