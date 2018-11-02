@@ -1,1 +1,0 @@
-/usr/bin/c++   -Wall -pthread   CMakeFiles/tcpSecureExample.dir/main.cpp.o  -o tcpSecureExample -Wl,-rpath,/usr/local/lib/cpputils:/usr/local/lib -lpthread /usr/local/lib/cpputils/libSockets.so /usr/local/lib/libgnutls.so 

@@ -1,3 +1,0 @@
-/home/dzayas/custom/cpputils-github/src/example/tcpsecuresocket/build/CMakeFiles/rebuild_cache.dir
-/home/dzayas/custom/cpputils-github/src/example/tcpsecuresocket/build/CMakeFiles/edit_cache.dir
-/home/dzayas/custom/cpputils-github/src/example/tcpsecuresocket/build/CMakeFiles/tcpSecureExample.dir
