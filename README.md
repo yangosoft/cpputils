@@ -11,6 +11,10 @@ C++14 utilites
 * trace memory allocator
 * simple signal system
 * CRTP and devirtualization example. Needs to be completed.
+* TCP socket client
+* TCP socket server
+
+
 
 
 ## Building
@@ -23,3 +27,9 @@ cmake ../
 make
 sudo make install
 ~~~~
+
+
+## Future work
+* TCP Server
+* UDP Client/Server
+* Async versions of them
