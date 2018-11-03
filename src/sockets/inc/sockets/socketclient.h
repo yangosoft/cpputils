@@ -18,10 +18,10 @@ namespace CppUtils
 class SocketClient : public ISocket  {
 public:
     SocketClient(std::string ip, uint16_t port);
-    bool tryConnect();
+    virtual bool tryConnect();
     virtual ~SocketClient() = default;
 
-private:
+protected:
 
     std::string m_host;
     uint16_t m_port;

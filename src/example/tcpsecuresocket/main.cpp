@@ -7,6 +7,7 @@
 
 #include <cpputils/sockets/securesocket.h>
 #include <cpputils/sockets/socketclient.h>
+#include <cpputils/sockets/securesocketclient.h>
 #include <cpputils/sockets/securesocketserver.h>
 
 
@@ -32,11 +33,12 @@ int main(int /*argc*/, char** /*argv*/)
         std::string data;
         while(run){
         int n = client.readData(data);
+        std::cout << "* Readed " << n << " bytes: '" << std::string(data) << "'" << std::endl;
         if (n < 0)
         {
             break;
         }
-        std::cout << "* Readed " << n << " bytes: '" << std::string(data) << "'" << std::endl;
+        
         
         }
     });
@@ -51,6 +53,14 @@ int main(int /*argc*/, char** /*argv*/)
     
     std::thread t(&runServer,std::ref(server));
 
+    CppUtils::SecureSocketClient client{"localhost",8999,"cert.pem","key.pem"};
+    client.tryConnect();
+    client.writeData("HELLO from CLIENT");
+    client.disconnect();
+    
+    
+    
+    
     t.join();
 
   return 0;

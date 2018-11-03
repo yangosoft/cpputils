@@ -33,6 +33,6 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/measuretime)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/crtp)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/sockets)
 #add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/example/tcpsocket)
-#add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/example/tcpsecuresocket)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/example/tcpsecuresocket)
 
 
