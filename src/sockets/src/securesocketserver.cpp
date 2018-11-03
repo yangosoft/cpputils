@@ -74,10 +74,8 @@ fCallback(std::move(onNewClientCallback))
 
     struct sockaddr_in servAddr {};
     fdSck = socket(AF_INET, SOCK_STREAM, 0);
-
-
     servAddr.sin_family = AF_INET;
-    servAddr.sin_addr.s_addr = htonl(INADDR_ANY); //Importantísimo usar la familia  de funciones hton (hardware to network)
+    servAddr.sin_addr.s_addr = htonl(INADDR_ANY); 
     servAddr.sin_port = htons(m_port);
     int optval = 1;
 
@@ -86,7 +84,6 @@ fCallback(std::move(onNewClientCallback))
     int status = bind(fdSck, reinterpret_cast<struct sockaddr*> (&servAddr), sizeof (servAddr));
     if (0 != status)
     {
-
         std::string msg("Something went wrong in bind " + std::to_string(status));
         std::cout << msg << std::endl;
         throw std::logic_error(msg);
@@ -103,8 +100,6 @@ int SecureSocketServer::serverListen()
     {
         std::cout << "Something went wrong in listen" << std::endl;
     }
-
-    
 
     return status;
 }
@@ -132,10 +127,8 @@ void SecureSocketServer::doAccept()
      * doing that is shown in the "Verifying a certificate"
      * example.
      */
-    gnutls_certificate_server_set_request(session,
-            GNUTLS_CERT_IGNORE);
-    gnutls_handshake_set_timeout(session,
-            GNUTLS_DEFAULT_HANDSHAKE_TIMEOUT);
+    gnutls_certificate_server_set_request(session, GNUTLS_CERT_IGNORE);
+    gnutls_handshake_set_timeout(session, GNUTLS_DEFAULT_HANDSHAKE_TIMEOUT);
     
     int32_t fdClient = accept(m_fdSocket, nullptr, nullptr);
     gnutls_transport_set_int(session, fdClient);
@@ -152,9 +145,7 @@ void SecureSocketServer::doAccept()
         close(fdClient);
         gnutls_deinit(session);
         std::string err(gnutls_strerror(ret));
-
-        err = "*** Handshake has failed: " + err;
-
+        err = "Handshake has failed: " + err;
         std::cout << err << std::endl;
         throw std::logic_error(err);
     }

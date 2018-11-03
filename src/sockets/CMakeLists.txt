@@ -22,10 +22,12 @@ src/isocket.cpp)
 
 if( ENABLE_GNUTLS )
     list(APPEND SOURCE_FILES "src/securesocketserver.cpp" 
-"src/securesocket.cpp" )
+"src/securesocket.cpp"
+"src/securesocketclient.cpp")
     
     list(APPEND HEADER_FILES "inc/sockets/securesocketserver.h"
-"inc/sockets/securesocket.h" )
+"inc/sockets/securesocket.h"
+"inc/socket/securesocketclient.h")
 endif()
 
 add_library(Sockets SHARED ${SOURCE_FILES})
