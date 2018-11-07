@@ -67,3 +67,9 @@ void SocketServer::doAccept()
     ISocket s(fdClient);
     fCallback(s);
 }
+
+int SocketServer::getFdSocket() const
+{
+    return m_fdSocket;
+}
+        

@@ -22,6 +22,8 @@ public:
     void doAccept();
     
     
+    int getFdSocket() const;
+    
     virtual void disconnect();
     
     virtual ~SocketServer() = default;

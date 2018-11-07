@@ -21,7 +21,6 @@ ssize_t SecureSocket::writeData(const char *data, size_t size) const
 ssize_t SecureSocket::readData(char* buffer, ssize_t size) const
 {
     std::cout << __PRETTY_FUNCTION__ << std::endl;
-
     ssize_t len = gnutls_record_recv(m_session, buffer, size);
 
     
@@ -38,32 +37,11 @@ ssize_t SecureSocket::readData(char* buffer, ssize_t size) const
     {
         //Client disconnected
         std::cout << "Client " << m_fdSocket << " disconnected" << std::endl;
-//        close(m_fdSocket);
     }
 
     return len;
 }
 
-bool SecureSocket::writeData(const std::string& data) const
-{
-    ssize_t n = writeData(data.c_str(), data.size());
-    return (n == static_cast<ssize_t> (data.size()));
-}
-
-ssize_t SecureSocket::readData(std::string &data) const
-{
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-    char buffer[256]{};
-    size_t n = readData(buffer, sizeof (buffer));
-    if ((n > 0) && (n < sizeof (buffer)))
-    {
-        buffer[n] = '\0';
-        data = std::string(buffer);
-    }
-
-    return n;
-
-}
 
 void SecureSocket::disconnect()
 {

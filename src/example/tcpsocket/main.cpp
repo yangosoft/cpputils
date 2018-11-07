@@ -20,7 +20,7 @@ void runServer()
         std::string data;
         int n = client.readData(data);
         
-        std::cout << "* Readed " << n << " bytes: '" << std::string(data) << "'" << std::endl;
+        std::cout << "* Readed " << n << " bytes: '" << data << "'" << std::endl;
     });
     
     
