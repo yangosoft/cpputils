@@ -14,7 +14,7 @@ C++14 utilites
 * TCP socket client
 * TCP socket server
 
-
+Check examples folder and build them after install CppUtils.
 
 
 ## Building
@@ -27,6 +27,11 @@ cmake ../
 make
 sudo make install
 cd ../example/tcpsocket
+mkdir build
+cd build
+cmake ..
+make
+cd ../../tcpepollserver
 mkdir build
 cd build
 cmake ..
@@ -53,11 +58,15 @@ cd build
 cmake .. -DENABLE_GNUTLS=ON
 make
 cp ../../certs/* .
+cd ../../tcpepollserver
+mkdir build
+cd build
+cmake .. -DENABLE_GNUTLS=ON
+make
 ~~~~
 
 
 
 ## Future work
-* TCP Server
 * UDP Client/Server
 * Async versions of them
