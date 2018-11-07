@@ -62,7 +62,7 @@ install (EXPORT SocketsTargets
          )
          
 install (DIRECTORY inc/sockets 
-          DESTINATION include/cpputils)
+         DESTINATION include/cpputils)
 
 include (CMakePackageConfigHelpers)
 write_basic_package_version_file("SocketsConfigVersion.cmake" VERSION  ${CppUtils_VERSION_MAJOR} COMPATIBILITY SameMajorVersion)
