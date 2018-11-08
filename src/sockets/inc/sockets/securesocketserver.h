@@ -9,7 +9,7 @@
 #include <functional>
 
 #include "isocket.h"
-#include "sockets/isocketserver.h"
+#include "isocketserver.h"
 
 namespace CppUtils
 {
