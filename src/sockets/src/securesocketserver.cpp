@@ -12,6 +12,8 @@
 
 #include <iostream>
 
+
+
 #include "sockets/securesocket.h"
 #include "sockets/securesocketserver.h"
 
@@ -35,12 +37,9 @@ static const std::string CRLFILE {"crl.pem"};
 static const std::string OCSP_STATUS_FILE{"ocsp-status.der"};
 
 SecureSocketServer::SecureSocketServer(uint32_t port, std::string certificate, std::string key, OnNewClientCallback onNewClientCallback) : 
-m_port(port), 
-m_fdSocket(-1),
+ISocketServer(port,std::move(onNewClientCallback)),
 m_certificate(std::move(certificate)),
-m_key(std::move(key)),
- 
-fCallback(std::move(onNewClientCallback))
+m_key(std::move(key))
 {
 
     int ret = gnutls_global_init();
@@ -100,17 +99,7 @@ fCallback(std::move(onNewClientCallback))
     m_fdSocket = fdSck;
 }
 
-int SecureSocketServer::serverListen()
-{
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-    int32_t status = listen(m_fdSocket, 10);
-    if (0 != status)
-    {
-        std::cout << "Something went wrong in listen" << std::endl;
-    }
 
-    return status;
-}
 
 void SecureSocketServer::disconnect()
 {

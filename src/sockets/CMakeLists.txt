@@ -12,6 +12,7 @@ include_directories(inc)
 
 
 set(HEADER_FILES "inc/sockets/socketclient.h"
+"inc/sockets/isocketserver.h"
 "inc/sockets/socketserver.h"
 "inc/sockets/isocket.h"
 "inc/sockets/isocketclient.h"
@@ -19,12 +20,13 @@ set(HEADER_FILES "inc/sockets/socketclient.h"
 
 set (SOURCE_FILES src/socketclient.cpp
 src/socketserver.cpp
+src/isocketserver.cpp
 src/isocket.cpp
 src/isocketclient.cpp
 src/socket.cpp)
 
 if( ENABLE_GNUTLS )
-    list(APPEND SOURCE_FILES "src/securesocketserver.cpp" 
+    list(APPEND SOURCE_FILES "src/securesocketserver.cpp"
 "src/securesocket.cpp"
 "src/securesocketclient.cpp"
 )
