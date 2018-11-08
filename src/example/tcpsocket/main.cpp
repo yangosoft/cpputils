@@ -18,7 +18,7 @@ void runServer()
         std::cout << "* New client: " << client.getFdSocket() << std::endl;
         
         std::string data;
-        int n = client.readData(data);
+        int n = client.readString(data);
         
         std::cout << "* Readed " << n << " bytes: '" << data << "'" << std::endl;
     });
@@ -38,12 +38,16 @@ int main(int /*argc*/, char** /*argv*/)
     std::thread t(&runServer);
 
     CppUtils::SocketClient s("localhost",8999);
-    s.tryConnect();
+    if ( -1 == s.tryConnect())
+    {
+        std::cout << "Error connecting!" << std::endl;
+        return -1;
+    }
    
     std::string hello("Hello World!");
     std::cout << "Sending '" << hello << "'" << std::endl;
     
-    bool ok = s.writeData(hello);
+    bool ok = s.writeString(hello);
     if(false == ok)
     {
         std::cout << "Cannot send all the data" << std::endl;

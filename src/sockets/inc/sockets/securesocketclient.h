@@ -3,23 +3,25 @@
 
 #include <string>
 
-#include "socketclient.h"
+#include "isocketclient.h"
+#include "securesocket.h"
 
 namespace CppUtils {
 
 /**
  * @todo write docs
  */
-class SecureSocketClient : public SocketClient
+class SecureSocketClient : public ISocketClient, public SecureSocket
 {
 public:
     /**
      * Default constructor
      */
-    SecureSocketClient(std::string ip, uint16_t port, std::string certificatePath, std::string keyPath);
+    SecureSocketClient(std::string ip, uint16_t port, std::string certificatePath, std::string keyPath, std::string serverName);
 
-    bool tryConnect() override;
+    int32_t tryConnect() override;
     void disconnect() override;
+    
     
     /**
      * Destructor
@@ -32,6 +34,8 @@ private:
     gnutls_certificate_credentials_t xcred;
     std::string m_certificate;
     std::string m_key;
+    std::string m_serverName;
+    
 
 };
 

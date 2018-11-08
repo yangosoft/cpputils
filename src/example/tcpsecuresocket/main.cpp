@@ -1,5 +1,5 @@
 
-
+#include <chrono>
 #include <iostream>
 #include <string>
 #include <thread>
@@ -10,7 +10,7 @@
 #include <cpputils/sockets/securesocketclient.h>
 #include <cpputils/sockets/securesocketserver.h>
 
-
+using namespace std::chrono_literals;
 
 bool run = true;
 
@@ -26,20 +26,20 @@ void runServer(CppUtils::SecureSocketServer& server)
 int main(int /*argc*/, char** /*argv*/)
 {
     
-    CppUtils::SecureSocketServer server(8999, []( CppUtils::ISocket& client ){ 
+    CppUtils::SecureSocketServer server(8999, "../cert/cert.pem", "../cert/key.pem", []( CppUtils::ISocket& client )
+    { 
         
-        std::cout << "* New client: " << client.getFdSocket() << std::endl;
+        std::cout << "[Server] New client: " << client.getFdSocket() << std::endl;
         
-        std::string data;
+        std::string data{};
         while(run){
-        int n = client.readData(data);
-        std::cout << "* Readed " << n << " bytes: '" << std::string(data) << "'" << std::endl;
-        if (n < 0)
-        {
-            break;
-        }
-        
-        
+            int n = client.readString(data);
+            std::cout << "[Server] Readed " << n << " bytes: '" << std::string(data) << "'" << std::endl;
+            if (n < 0)
+            {
+                break;
+            }    
+            client.writeString(data);
         }
     });
     
@@ -53,9 +53,20 @@ int main(int /*argc*/, char** /*argv*/)
     
     std::thread t(&runServer,std::ref(server));
 
-    CppUtils::SecureSocketClient client{"localhost",8999,"cert.pem","key.pem"};
+    CppUtils::SecureSocketClient client{"localhost",8999,"../cert/clientcert.pem","../cert/clientkey.pem","cpputils" };
     client.tryConnect();
-    client.writeData("HELLO from CLIENT");
+    while(run)
+    {
+        client.writeString("HELLO from CLIENT");
+        std::string data;
+        client.readString(data);
+        std::cout << "[Client] readed " << data << std::endl;
+        std::this_thread::sleep_for(1s);
+        
+        
+        
+        
+    }
     client.disconnect();
     
     
