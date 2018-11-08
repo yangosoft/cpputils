@@ -57,7 +57,7 @@ mkdir build
 cd build
 cmake .. -DENABLE_GNUTLS=ON
 make
-cp ../../certs/* .
+cp ../certs/* .
 cd ../../tcpepollserver
 mkdir build
 cd build

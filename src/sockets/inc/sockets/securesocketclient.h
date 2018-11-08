@@ -16,10 +16,15 @@ public:
     /**
      * Default constructor
      */
-    SecureSocketClient(std::string ip, uint16_t port, std::string certificatePath, std::string keyPath);
+    SecureSocketClient(std::string ip, uint16_t port, std::string certificatePath, std::string keyPath, std::string serverName);
 
     bool tryConnect() override;
     void disconnect() override;
+    
+    ssize_t writeData(const char *data, size_t size) const override;    
+    bool writeData(const std::string &data) const override;    
+    ssize_t readData(char *buffer, ssize_t size) const override;
+    ssize_t readData(std::string &data) const override;
     
     /**
      * Destructor
@@ -32,6 +37,8 @@ private:
     gnutls_certificate_credentials_t xcred;
     std::string m_certificate;
     std::string m_key;
+    std::string m_serverName;
+    
 
 };
 

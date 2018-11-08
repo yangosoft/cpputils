@@ -19,7 +19,7 @@ using OnNewClientCallback =  std::function< void(ISocket& fdClient) >;
 class SecureSocketServer  {
   
 public:
-    SecureSocketServer(uint32_t port, OnNewClientCallback onNewClientCallback);
+    SecureSocketServer(uint32_t port, std::string certificate, std::string key, OnNewClientCallback onNewClientCallback);
     
     int serverListen();
     void doAccept();
@@ -33,6 +33,11 @@ public:
 private:
     uint32_t m_port;
     uint32_t m_fdSocket;
+    std::string m_certificate;
+    std::string m_key;
+    
+    
+    
     OnNewClientCallback fCallback;
     
     gnutls_datum_t out;    
@@ -42,6 +47,8 @@ private:
     gnutls_priority_t priority_cache;
     
     gnutls_session_t session;
+    
+    
     
 };
 }

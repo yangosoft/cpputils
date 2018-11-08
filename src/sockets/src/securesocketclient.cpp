@@ -4,14 +4,17 @@
 
 #include <iostream>
 
+#include "sockets/securesocket.h"
 #include "sockets/securesocketclient.h"
+
 
 using namespace CppUtils;
 
-SecureSocketClient::SecureSocketClient(std::string ip, uint16_t port,std::string certificate, std::string key):
+SecureSocketClient::SecureSocketClient(std::string ip, uint16_t port,std::string certificate, std::string key, std::string serverName):
     SocketClient(std::move(ip),port),
     m_certificate(certificate),
-    m_key(key)
+    m_key(key),
+    m_serverName(std::move(serverName))
 {
 
 }
@@ -29,6 +32,8 @@ bool SecureSocketClient::tryConnect()
     std::cout << __PRETTY_FUNCTION__ << std::endl;
     bool retConnect = SocketClient::tryConnect();
 
+    int32_t ret;
+    
     /* for backwards compatibility with gnutls < 3.3.0 */
     gnutls_global_init();
 
@@ -40,13 +45,16 @@ bool SecureSocketClient::tryConnect()
 
     /* If client holds a certificate it can be set using the following:
      */
-    gnutls_certificate_set_x509_key_file2 (xcred, m_certificate.c_str(), m_key.c_str(),                              GNUTLS_X509_FMT_PEM,"cpputils",0);
+    ret = gnutls_certificate_set_x509_key_file2 (xcred, m_certificate.c_str(), m_key.c_str()
+            , GNUTLS_X509_FMT_PEM,"cpputils",0);
+    
+    std::cout << "key_file2 " << ret << std::endl;
 
 
     /* Initialize TLS session */
     gnutls_init(&session, GNUTLS_CLIENT);
 
-//     gnutls_server_name_set(session, GNUTLS_NAME_DNS, "my_host_name", strlen("my_host_name"));
+    gnutls_server_name_set(session, GNUTLS_NAME_DNS, m_serverName.c_str(), m_serverName.size());
 
     /* It is recommended to use the default priorities */
     gnutls_set_default_priority(session);
@@ -58,8 +66,8 @@ bool SecureSocketClient::tryConnect()
 
     gnutls_transport_set_int(session, m_fdSocket);
     gnutls_handshake_set_timeout(session,  GNUTLS_DEFAULT_HANDSHAKE_TIMEOUT);
-    int32_t ret;
-     gnutls_certificate_type_t type;
+    
+    gnutls_certificate_type_t type;
     uint32_t status;
     /* Perform the TLS handshake
      */
@@ -83,6 +91,10 @@ bool SecureSocketClient::tryConnect()
         throw std::logic_error(err);
     }
 
+    
+    char *desc = gnutls_session_get_desc(session);
+    std::cout << "- Session info: " << desc << std::endl;
+    gnutls_free(desc);
 
 
     return retConnect;
@@ -90,13 +102,38 @@ bool SecureSocketClient::tryConnect()
 
 void SecureSocketClient::disconnect()
 {
-
+    gnutls_deinit(session);
+    gnutls_certificate_free_credentials(xcred);
+    gnutls_global_deinit();
     close(m_fdSocket);
     m_fdSocket = -1;
-    gnutls_deinit(session);
-
-    gnutls_certificate_free_credentials(xcred);
-
-    gnutls_global_deinit();
 }
+
+ ssize_t SecureSocketClient::writeData(const char *data, size_t size) const 
+ {
+    gnutls_session_t cSession = session;
+    auto s = SecureSocket(m_fdSocket,cSession);
+    return s.writeData(data,size);
+ }
+ 
+ bool SecureSocketClient::writeData(const std::string &data) const 
+ {
+    gnutls_session_t cSession = session;
+    auto s = SecureSocket(m_fdSocket,cSession);
+    return s.writeData(data); 
+ }
+ 
+ ssize_t SecureSocketClient::readData(char *buffer, ssize_t size) const 
+ {
+    gnutls_session_t cSession = session;
+    auto s = SecureSocket(m_fdSocket,cSession);
+    return s.readData(buffer,size);
+ }
+ 
+ ssize_t SecureSocketClient::readData(std::string &data) const 
+ {
+    gnutls_session_t cSession = session;
+    auto s = SecureSocket(m_fdSocket,cSession);
+    return s.readData(data);
+ }
 

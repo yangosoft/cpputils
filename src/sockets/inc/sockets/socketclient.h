@@ -1,4 +1,3 @@
-
 #ifndef SOCKETCLIENT_H
 #define	SOCKETCLIENT_H
 
@@ -9,7 +8,7 @@
 #include <thread>
 
 #include "isocket.h"
-
+#include "securesocket.h"
 
 namespace CppUtils
 {

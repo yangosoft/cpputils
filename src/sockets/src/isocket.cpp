@@ -13,6 +13,7 @@ ISocket::ISocket(int32_t fdSocket): m_fdSocket(fdSocket){
 
 ssize_t ISocket::writeData(const char *data, size_t size) const
 {
+    std::cout << __PRETTY_FUNCTION__ << std::endl;
     ssize_t n = write(m_fdSocket, data, size);
     return n;
 }
@@ -35,6 +36,7 @@ ssize_t ISocket::readData(char* buffer, ssize_t size) const
 
 bool ISocket::writeData(const std::string& data) const
 {
+    std::cout << __PRETTY_FUNCTION__ << std::endl;
     ssize_t n = writeData(data.c_str(),data.size());
     return (n == static_cast<ssize_t>(data.size()));
 }
@@ -42,6 +44,7 @@ bool ISocket::writeData(const std::string& data) const
 
 ssize_t ISocket::readData(std::string &data) const
 {
+    std::cout << __PRETTY_FUNCTION__ << std::endl;
     char buffer[256]{};
     size_t n = readData(buffer,sizeof(buffer));
     if(( n > 0 ) && ( n < sizeof(buffer)))
