@@ -14,9 +14,6 @@
 namespace CppUtils
 {
 
-
-
-
 class SecureSocketServer : public ISocketServer  {
   
 public:
