@@ -10,6 +10,7 @@
 
 #include <iostream>
 
+#include "sockets/socket.h"
 #include "sockets/socketserver.h"
 
 
@@ -64,7 +65,7 @@ void SocketServer::disconnect()
 void SocketServer::doAccept()
 {
     int32_t fdClient = accept(m_fdSocket, nullptr, nullptr);
-    ISocket s(fdClient);
+    Socket s(fdClient);
     fCallback(s);
 }
 

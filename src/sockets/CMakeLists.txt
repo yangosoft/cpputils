@@ -11,23 +11,28 @@ include_directories(inc)
 
 
 
-set(HEADER_FILES inc/sockets/socketclient.h
-inc/sockets/socketserver.h
-inc/sockets/isocket.h)
+set(HEADER_FILES "inc/sockets/socketclient.h"
+"inc/sockets/socketserver.h"
+"inc/sockets/isocket.h"
+"inc/sockets/isocketclient.h"
+"inc/socket/socket.h")
 
 set (SOURCE_FILES src/socketclient.cpp
 src/socketserver.cpp
-
-src/isocket.cpp)
+src/isocket.cpp
+src/isocketclient.cpp
+src/socket.cpp)
 
 if( ENABLE_GNUTLS )
     list(APPEND SOURCE_FILES "src/securesocketserver.cpp" 
 "src/securesocket.cpp"
-"src/securesocketclient.cpp")
+"src/securesocketclient.cpp"
+)
     
     list(APPEND HEADER_FILES "inc/sockets/securesocketserver.h"
 "inc/sockets/securesocket.h"
-"inc/socket/securesocketclient.h")
+"inc/socket/securesocketclient.h"
+)
 endif()
 
 add_library(Sockets SHARED ${SOURCE_FILES})

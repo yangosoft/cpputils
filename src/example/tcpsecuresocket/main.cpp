@@ -33,12 +33,13 @@ int main(int /*argc*/, char** /*argv*/)
         
         std::string data{};
         while(run){
-            int n = client.readData(data);
+            int n = client.readString(data);
             std::cout << "[Server] Readed " << n << " bytes: '" << std::string(data) << "'" << std::endl;
             if (n < 0)
             {
                 break;
             }    
+            client.writeString(data);
         }
     });
     
@@ -56,8 +57,15 @@ int main(int /*argc*/, char** /*argv*/)
     client.tryConnect();
     while(run)
     {
-        client.writeData("HELLO from CLIENT");
+        client.writeString("HELLO from CLIENT");
+        std::string data;
+        client.readString(data);
+        std::cout << "[Client] readed " << data << std::endl;
         std::this_thread::sleep_for(1s);
+        
+        
+        
+        
     }
     client.disconnect();
     

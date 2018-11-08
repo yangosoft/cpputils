@@ -11,7 +11,8 @@
 using namespace CppUtils;
 
 SecureSocketClient::SecureSocketClient(std::string ip, uint16_t port,std::string certificate, std::string key, std::string serverName):
-    SocketClient(std::move(ip),port),
+    ISocketClient(std::move(ip),port),
+    SecureSocket(-1,session),
     m_certificate(certificate),
     m_key(key),
     m_serverName(std::move(serverName))
@@ -27,10 +28,12 @@ SecureSocketClient::~SecureSocketClient()
     }
 }
 
-bool SecureSocketClient::tryConnect()
+int32_t SecureSocketClient::tryConnect()
 {
     std::cout << __PRETTY_FUNCTION__ << std::endl;
-    bool retConnect = SocketClient::tryConnect();
+    m_fdSocket = ISocketClient::tryConnect();
+    
+    
 
     int32_t ret;
     
@@ -97,7 +100,7 @@ bool SecureSocketClient::tryConnect()
     gnutls_free(desc);
 
 
-    return retConnect;
+    return m_fdSocket;
 }
 
 void SecureSocketClient::disconnect()
@@ -109,31 +112,4 @@ void SecureSocketClient::disconnect()
     m_fdSocket = -1;
 }
 
- ssize_t SecureSocketClient::writeData(const char *data, size_t size) const 
- {
-    gnutls_session_t cSession = session;
-    auto s = SecureSocket(m_fdSocket,cSession);
-    return s.writeData(data,size);
- }
- 
- bool SecureSocketClient::writeData(const std::string &data) const 
- {
-    gnutls_session_t cSession = session;
-    auto s = SecureSocket(m_fdSocket,cSession);
-    return s.writeData(data); 
- }
- 
- ssize_t SecureSocketClient::readData(char *buffer, ssize_t size) const 
- {
-    gnutls_session_t cSession = session;
-    auto s = SecureSocket(m_fdSocket,cSession);
-    return s.readData(buffer,size);
- }
- 
- ssize_t SecureSocketClient::readData(std::string &data) const 
- {
-    gnutls_session_t cSession = session;
-    auto s = SecureSocket(m_fdSocket,cSession);
-    return s.readData(data);
- }
 

@@ -3,14 +3,15 @@
 
 #include <string>
 
-#include "socketclient.h"
+#include "isocketclient.h"
+#include "securesocket.h"
 
 namespace CppUtils {
 
 /**
  * @todo write docs
  */
-class SecureSocketClient : public SocketClient
+class SecureSocketClient : public ISocketClient, public SecureSocket
 {
 public:
     /**
@@ -18,13 +19,9 @@ public:
      */
     SecureSocketClient(std::string ip, uint16_t port, std::string certificatePath, std::string keyPath, std::string serverName);
 
-    bool tryConnect() override;
+    int32_t tryConnect() override;
     void disconnect() override;
     
-    ssize_t writeData(const char *data, size_t size) const override;    
-    bool writeData(const std::string &data) const override;    
-    ssize_t readData(char *buffer, ssize_t size) const override;
-    ssize_t readData(std::string &data) const override;
     
     /**
      * Destructor

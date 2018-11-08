@@ -11,30 +11,9 @@ ISocket::ISocket(int32_t fdSocket): m_fdSocket(fdSocket){
 }
 
 
-ssize_t ISocket::writeData(const char *data, size_t size) const
-{
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-    ssize_t n = write(m_fdSocket, data, size);
-    return n;
-}
-
-ssize_t ISocket::readData(char* buffer, ssize_t size) const
-{
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
 
 
-    ssize_t len = read(m_fdSocket, buffer, size);
-    if (len <= 0)
-    {
-        //Client disconnected
-        std::cout << "Client " << m_fdSocket << " disconnected" << std::endl;
-        close(m_fdSocket);
-    }
-
-    return len;
-}
-
-bool ISocket::writeData(const std::string& data) const
+bool ISocket::writeString(const std::string& data) const
 {
     std::cout << __PRETTY_FUNCTION__ << std::endl;
     ssize_t n = writeData(data.c_str(),data.size());
@@ -42,7 +21,7 @@ bool ISocket::writeData(const std::string& data) const
 }
 
 
-ssize_t ISocket::readData(std::string &data) const
+bool ISocket::readString(std::string &data) const
 {
     std::cout << __PRETTY_FUNCTION__ << std::endl;
     char buffer[256]{};
@@ -53,13 +32,16 @@ ssize_t ISocket::readData(std::string &data) const
         data = std::string(buffer);
     }
     
-    return n;
+    return (n == static_cast<size_t>(data.size()));
     
 }
 
 void ISocket::disconnect()
 {
-    close(m_fdSocket);
+    if(m_fdSocket > 0)
+    {
+        close(m_fdSocket);
+    }
 }
 
 int32_t ISocket::getFdSocket() const
