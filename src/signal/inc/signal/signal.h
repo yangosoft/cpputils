@@ -1,6 +1,8 @@
 #ifndef __sgsignals_h__
 #define __sgsignals_h__
 
+
+#include <algorithm>
 #include <list>
 #include <memory>
 
@@ -24,9 +26,9 @@ public:
     }
     void trigger(Values... values)
     {
-        for (auto f : lstFunctions) {
+        std::for_each(lstFunction.begin(), lstFunctions.end(), [this](auto f){ 
             f(values...);
-        }
+        });
     }
 };
 }

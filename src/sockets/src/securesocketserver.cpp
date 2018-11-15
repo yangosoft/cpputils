@@ -12,6 +12,8 @@
 
 #include <iostream>
 
+
+
 #include "sockets/securesocket.h"
 #include "sockets/securesocketserver.h"
 
@@ -20,8 +22,8 @@
 using namespace CppUtils;
 
 
-static const std::string KEYFILE{"key.pem"};
-static const std::string CERTFILE{"cert.pem"};
+//static const std::string KEYFILE{"key.pem"};
+//static const std::string CERTFILE{"cert.pem"};
 static const std::string CAFILE {"/etc/ssl/certs/ca-certificates.crt"};
 static const std::string CRLFILE {"crl.pem"};
 
@@ -34,10 +36,10 @@ static const std::string CRLFILE {"crl.pem"};
  */
 static const std::string OCSP_STATUS_FILE{"ocsp-status.der"};
 
-SecureSocketServer::SecureSocketServer(uint32_t port, OnNewClientCallback onNewClientCallback) : 
-m_port(port), 
-m_fdSocket(-1), 
-fCallback(std::move(onNewClientCallback))
+SecureSocketServer::SecureSocketServer(uint32_t port, std::string certificate, std::string key, OnNewClientCallback onNewClientCallback) : 
+ISocketServer(port,std::move(onNewClientCallback)),
+m_certificate(std::move(certificate)),
+m_key(std::move(key))
 {
 
     int ret = gnutls_global_init();
@@ -62,7 +64,12 @@ fCallback(std::move(onNewClientCallback))
      * (the latter since 3.5.6). See the manual pages of the individual
      * functions for more information.
      */
-    gnutls_certificate_set_x509_key_file(x509_cred, CERTFILE.c_str(), KEYFILE.c_str(), GNUTLS_X509_FMT_PEM);
+//    gnutls_certificate_set_x509_key_file(x509_cred, m_certificate.c_str(), m_key.c_str(), GNUTLS_X509_FMT_PEM);
+    
+    ret = gnutls_certificate_set_x509_key_file2 (x509_cred, m_certificate.c_str(), m_key.c_str()
+            , GNUTLS_X509_FMT_PEM,"cpputils",0);
+    
+    std::cout << "key_file2 " << ret << std::endl;
 
     gnutls_certificate_set_ocsp_status_request_file(x509_cred, OCSP_STATUS_FILE.c_str(), 0);
 
@@ -92,17 +99,7 @@ fCallback(std::move(onNewClientCallback))
     m_fdSocket = fdSck;
 }
 
-int SecureSocketServer::serverListen()
-{
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
-    int32_t status = listen(m_fdSocket, 10);
-    if (0 != status)
-    {
-        std::cout << "Something went wrong in listen" << std::endl;
-    }
 
-    return status;
-}
 
 void SecureSocketServer::disconnect()
 {

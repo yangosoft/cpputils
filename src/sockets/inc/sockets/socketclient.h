@@ -1,4 +1,3 @@
-
 #ifndef SOCKETCLIENT_H
 #define	SOCKETCLIENT_H
 
@@ -8,23 +7,21 @@
 #include <string>
 #include <thread>
 
-#include "isocket.h"
+#include "socket.h"
+#include "isocketclient.h"
 
 
 namespace CppUtils
 {
 
 
-class SocketClient : public ISocket  {
+class SocketClient : public ISocketClient, public Socket  {
 public:
     SocketClient(std::string ip, uint16_t port);
-    virtual bool tryConnect();
+    int32_t tryConnect() override;
     virtual ~SocketClient() = default;
 
-protected:
 
-    std::string m_host;
-    uint16_t m_port;
         
 };
 };

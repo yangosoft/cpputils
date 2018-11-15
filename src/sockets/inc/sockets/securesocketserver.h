@@ -9,40 +9,34 @@
 #include <functional>
 
 #include "isocket.h"
+#include "isocketserver.h"
 
 namespace CppUtils
 {
 
-using OnNewClientCallback =  std::function< void(ISocket& fdClient) >;
-
-
-class SecureSocketServer  {
+class SecureSocketServer : public ISocketServer  {
   
 public:
-    SecureSocketServer(uint32_t port, OnNewClientCallback onNewClientCallback);
-    
-    int serverListen();
-    void doAccept();
+    SecureSocketServer(uint32_t port, std::string certificate, std::string key, OnNewClientCallback onNewClientCallback);
     
     
-    virtual void disconnect();
+    void doAccept() override;
+    
+    
+    void disconnect() override;
     
     virtual ~SecureSocketServer() = default;
     
     
-private:
-    uint32_t m_port;
-    uint32_t m_fdSocket;
-    OnNewClientCallback fCallback;
+protected:
     
-    gnutls_datum_t out;    
-    
-    
+    std::string m_certificate;
+    std::string m_key;
+   
+    gnutls_datum_t out;        
     gnutls_certificate_credentials_t x509_cred;
-    gnutls_priority_t priority_cache;
-    
+    gnutls_priority_t priority_cache; 
     gnutls_session_t session;
-    
 };
 }
 

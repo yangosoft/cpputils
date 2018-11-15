@@ -19,6 +19,9 @@ if(NOT TARGET CppUtils::Sockets)
     find_package(Sockets REQUIRED)
 endif()
 
+if( ENABLE_GNUTLS )
+find_package (GnuTLS)
+endif()
 
 include_directories(${GTEST_INCLUDE_DIRS} ${sockets_INCLUDE_DIRS} )
 
@@ -30,7 +33,7 @@ message("LIBS  ${SOCKETS_LIBRARIES} ${GTEST_BOTH_LIBRARIES}")
 
 add_executable(Test_sockets ${SRCS})
 
-target_link_libraries(Test_sockets ${GTEST_BOTH_LIBRARIES} ${SOCKETS_LIBRARIES})
+target_link_libraries(Test_sockets ${GTEST_BOTH_LIBRARIES} ${SOCKETS_LIBRARIES} ${GNUTLS_LIBRARIES})
 
 add_test(SocketsTests Test_sockets --gtest_output=xml)
 

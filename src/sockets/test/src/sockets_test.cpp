@@ -14,7 +14,7 @@ TEST(ExampleTests, TestGet)
     s.tryConnect();
    
     
-    CppUtils::SocketServer server(8999, []( ISocket& client ){ 
+    CppUtils::SocketServer server(8999, []( CppUtils::ISocket& client ){ 
         
         
         
@@ -30,7 +30,7 @@ TEST(ExampleTests, TestGet)
     
     server.serverListen();
     server.doAccept();
-    bool ok = s.writeData("Hello world!");
+    bool ok = s.writeString(std::string("Hello world!"));
     
     server.disconnect();
     s.disconnect();

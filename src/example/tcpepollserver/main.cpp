@@ -23,7 +23,7 @@
 #include <cpputils/sockets/socketclient.h>
 #include <cpputils/sockets/socketserver.h>
 
-#include "sockets/isocket.h"
+
 
 
 static constexpr int MAX_EVENTS = 256;
@@ -62,7 +62,7 @@ void runServer()
     }
 
     //We are adding the listening socket to epoll
-    auto listeningSocket = CppUtils::ISocket{server.getFdSocket()};
+    auto listeningSocket = CppUtils::Socket{server.getFdSocket()};
     addFdToEpoll(listeningSocket);
 
 
@@ -84,11 +84,11 @@ void runServer()
             }
             else
             {
-                auto c = CppUtils::ISocket{ events[n].data.fd };
+                auto c = CppUtils::Socket{ events[n].data.fd };
                 std::string data;
-                c.readData(data);
+                c.readString(data);
                 std::cout << "Client " << c.getFdSocket() << " readed " << data << std::endl;
-                c.writeData(data);
+                c.writeString(data);
             }
         }
     }
@@ -114,7 +114,7 @@ int main(int /*argc*/, char** /*argv*/)
     std::string hello("Hello World!");
     std::cout << "Sending '" << hello << "'" << std::endl;
 
-    bool ok = s.writeData(hello);
+    bool ok = s.writeString(hello);
     if (false == ok)
     {
         std::cout << "Cannot send all the data" << std::endl;
