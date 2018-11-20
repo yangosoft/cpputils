@@ -1,6 +1,6 @@
 
-#ifndef ISOCKET_H
-#define	ISOCKET_H
+#ifndef __CPPUTILS_ISOCKET_H
+#define	__CPPUTILS_ISOCKET_H
 
 #include <sys/types.h>
 #include <unistd.h>
@@ -34,4 +34,4 @@ protected:
 
 };
 };
-#endif	/* ISOCKET_H */
+#endif	/* __CPPUTILS_ISOCKET_H */

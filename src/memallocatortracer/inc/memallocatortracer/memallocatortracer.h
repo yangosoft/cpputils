@@ -1,5 +1,5 @@
-#ifndef MEMALLOCATORTRACER_H
-#define MEMALLOCATORTRACER_H
+#ifndef __CPPUTILS_MEMALLOCATORTRACER_H
+#define __CPPUTILS_MEMALLOCATORTRACER_H
 
 //namespace CppUtils {
 #include <map>
@@ -80,4 +80,4 @@ void operator delete(void * mem) throw() {
 
 //} //namespace
 
-#endif //MEMALLOCATORTRACER_H
+#endif //__CPPUTILS_MEMALLOCATORTRACER_H

@@ -1,5 +1,5 @@
-#ifndef FACTORY2_H
-#define FACTORY2_H
+#ifndef __CPPUTILS_FACTORY2_H
+#define __CPPUTILS_FACTORY2_H
 
 #include <map>
 #include "basemaker.h"
@@ -44,4 +44,4 @@ private:
 };
 }
 
-#endif  // FACTORY2_H
+#endif  // __CPPUTILS_FACTORY2_H

@@ -1,5 +1,5 @@
-#ifndef SECURESOCKETSERVER_H
-#define	SECURESOCKETSERVER_H
+#ifndef __CPPUTILS_SECURESOCKETSERVER_H
+#define	__CPPUTILS_SECURESOCKETSERVER_H
 
 
 #include <gnutls/gnutls.h>
@@ -40,4 +40,4 @@ protected:
 };
 }
 
-#endif
+#endif //__CPPUTILS_

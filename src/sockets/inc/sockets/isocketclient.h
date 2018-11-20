@@ -1,5 +1,5 @@
-#ifndef ISOCKETCLIENT_H
-#define ISOCKETCLIENT_H
+#ifndef __CPPUTILS_ISOCKETCLIENT_H
+#define __CPPUTILS_ISOCKETCLIENT_H
 
 
 #include <cstdint>
@@ -23,5 +23,5 @@ protected:
 };
 };
 
-#endif /* ISOCKETCLIENT_H */
+#endif /* __CPPUTILS_ISOCKETCLIENT_H */
 

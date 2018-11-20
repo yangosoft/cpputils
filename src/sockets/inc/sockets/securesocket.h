@@ -1,6 +1,6 @@
 
-#ifndef SECURESOCKET_H
-#define	SECURESOCKET_H
+#ifndef __CPPUTILS_SECURESOCKET_H
+#define	__CPPUTILS_SECURESOCKET_H
 
 #include <sys/types.h>
 #include <unistd.h>
@@ -33,4 +33,4 @@ protected:
 
 };
 };
-#endif	/* SECURESOCKET_H */
+#endif	/* __CPPUTILS_SECURESOCKET_H */

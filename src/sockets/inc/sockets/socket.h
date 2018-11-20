@@ -1,5 +1,5 @@
-#ifndef SOCKET_H
-#define SOCKET_H
+#ifndef __CPPUTILS_SOCKET_H
+#define __CPPUTILS_SOCKET_H
 
 #include "isocket.h"
 
@@ -17,5 +17,5 @@ private:
 
 };
 };
-#endif /* SOCKET_H */
+#endif /* __CPPUTILS_SOCKET_H */
 

@@ -1,5 +1,5 @@
-#ifndef SOCKETCLIENT_H
-#define	SOCKETCLIENT_H
+#ifndef __CPPUTILS_SOCKETCLIENT_H
+#define	__CPPUTILS_SOCKETCLIENT_H
 
 #include <cstdint>
 #include <list>
@@ -25,6 +25,6 @@ public:
         
 };
 };
-#endif	/* TSOCKETCLIENT_H */
+#endif	/* __CPPUTILS_SOCKETCLIENT_H */
 
 

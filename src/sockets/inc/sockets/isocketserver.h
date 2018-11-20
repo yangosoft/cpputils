@@ -1,5 +1,5 @@
-#ifndef ISOCKETSERVER_H
-#define ISOCKETSERVER_H
+#ifndef __CPPUTILS_ISOCKETSERVER_H
+#define __CPPUTILS_ISOCKETSERVER_H
 
 
 
@@ -37,5 +37,5 @@ protected:
 };
 };
 
-#endif /* ISOCKETSERVER_H */
+#endif /* __CPPUTILS_ISOCKETSERVER_H */
 

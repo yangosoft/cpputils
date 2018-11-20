@@ -1,5 +1,5 @@
-#ifndef SOCKETSERVER_H
-#define	SOCKETSERVER_H
+#ifndef __CPPUTILS_SOCKETSERVER_H
+#define	__CPPUTILS_SOCKETSERVER_H
 
 
 
@@ -19,4 +19,4 @@ public:
 };
 }
 
-#endif
+#endif //__CPPUTILS_

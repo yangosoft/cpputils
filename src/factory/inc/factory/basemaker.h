@@ -1,5 +1,5 @@
-#ifndef BASEMAKER_H
-#define BASEMAKER_H
+#ifndef __CPPUTILS_BASEMAKER_H
+#define __CPPUTILS_BASEMAKER_H
 
 #include <memory>
 
@@ -36,4 +36,4 @@ public:
 };
 }
 
-#endif  // BASEMAKER_H
+#endif  // __CPPUTILS_BASEMAKER_H

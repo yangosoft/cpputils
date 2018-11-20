@@ -1,5 +1,5 @@
-#ifndef __sgsignals_h__
-#define __sgsignals_h__
+#ifndef __CCPUTILS_SIGNALS_h__
+#define __CCPUTILS_SIGNALS__
 
 
 #include <algorithm>
@@ -26,11 +26,11 @@ public:
     }
     void trigger(Values... values)
     {
-        std::for_each(lstFunctions.begin(), lstFunctions.end(), [this](auto f){ 
+        std::for_each(lstFunctions.begin(), lstFunctions.end(), [this](auto f) {
             f(values...);
         });
     }
 };
 }
 
-#endif
+#endif //CCPUTILS_SIGNALS

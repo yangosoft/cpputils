@@ -1,5 +1,5 @@
-#ifndef FACTORY3_H
-#define FACTORY3_H
+#ifndef __CPPUTILS_FACTORY3_H
+#define __CPPUTILS_FACTORY3_H
 
 #include <map>
 #include <vector>
@@ -78,4 +78,4 @@ protected:
 
 }
 
-#endif // FACTORY2_H
+#endif // __CPPUTILS_FACTORY3_H

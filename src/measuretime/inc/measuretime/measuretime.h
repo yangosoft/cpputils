@@ -1,5 +1,5 @@
-#ifndef MEASURETIME_H
-#define MEASURETIME_H
+#ifndef __CPPUTILS_MEASURETIME_H
+#define __CPPUTILS_MEASURETIME_H
 
 #include <chrono>
 #include <utility>
@@ -27,4 +27,4 @@ static auto execute(F&& func, Args&&... args)
 };
 }
 
-#endif // MEASURETIME_H
+#endif // __CPPUTILS_MEASURETIME_H
