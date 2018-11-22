@@ -68,5 +68,6 @@ make
 
 
 ## Future work
+* Thread Pool
 * UDP Client/Server
 * Async versions of them
