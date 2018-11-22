@@ -1,22 +1,9 @@
-#include <limits.h>
 
-#include <cpputils/threadpool/thread.h>
-#include <cpputils/threadpool/threadpool.h>
+#include "cpputils/threadpool/thread.h"
+#include "cpputils/threadpool/threadpool.h"
 
-
-
-#include <gtest/gtest.h>
-
-
-#include <chrono>
-#include <iostream>
 #include <thread>
-
-
-namespace
-{
-    
-
+#include <iostream>
 
 class MyThread : public CppUtils::Thread
 {
@@ -33,20 +20,20 @@ public:
 };
 
 
-
-TEST(ThreadPoolTest, TestAdd)
+int main(int /*argc*/, char ** /*argv*/)
 {
     CppUtils::ThreadPool pool;
     MyThread t;
+    
+    std::cout << "Created thread" << std::endl;
     pool.add(t);
+    
     pool.start();
+    
+    
+    std::this_thread::sleep_for (std::chrono::seconds(2));
     pool.remove(t);
     pool.stop();
-     
     
-    
-    
-    EXPECT_TRUE(true);
+    return 0;
 }
-
-};

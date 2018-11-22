@@ -7,7 +7,8 @@
 
 namespace CppUtils
 {
-class Thread : public IThread {
+class Thread : public IThread 
+{
 public:
 
     enum class ThreadStatus {PAUSED, STOPPED, STARTED};
@@ -21,14 +22,19 @@ public:
     
     static void *run_helper(void *context)
     {
-//         return ((Thread*)context);
-        return static_cast<Thread*>(context);
+        return static_cast<Thread*>(context)->run();
     }
     
-private:
+protected:
     std::mutex m_mutex;
     ThreadStatus m_status;
     
+private:
+    void *run()
+    {
+         (*this)();
+         return 0;
+    };
     
 };
 }

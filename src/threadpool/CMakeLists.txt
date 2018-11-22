@@ -2,10 +2,9 @@ cmake_minimum_required(VERSION 3.8)
 
 project(ThreadPool VERSION ${CppUtils_VERSION_MAJOR}.${CppUtils_VERSION_MINOR} LANGUAGES CXX) 
 
+find_package (Threads)
 
 include (GNUInstallDirs)
-
-
 include_directories(inc)
 
 
@@ -15,17 +14,20 @@ set(HEADER_FILES "inc/threadpool/ithread.h"
 )
 
 set (SOURCE_FILES "src/threadpool.cpp"
-"src/thread.cpp")
+"src/thread.cpp"
+)
 
 
 add_library(ThreadPool SHARED ${SOURCE_FILES})
-
-
-
-
 set_target_properties(ThreadPool PROPERTIES VERSION ${CppUtils_VERSION_MAJOR})
 set_target_properties(ThreadPool PROPERTIES SOVERSION ${CppUtils_VERSION_MAJOR})
 
+set(CMAKE_BUILD_TYPE "Debug" CACHE STRING
+        "Choose the type of build, one of: Debug, Release, RelWithDebInfo, MinSizeRel"
+        FORCE)
+        
+# add_executable(ThreadPool ${SOURCE_FILES} )
+# target_link_libraries (ThreadPool ${CMAKE_THREAD_LIBS_INIT})
 
 set( threadpool_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/inc" CACHE STRING "Include-directories for threadpool" FORCE )
 
