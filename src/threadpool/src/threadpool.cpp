@@ -51,7 +51,6 @@ void ThreadPool::add(Thread &thread)
 
 void ThreadPool::remove(Thread &thread)
 {
-    
     m_threadList.erase(std::remove(m_threadList.begin(), m_threadList.end(), &thread), m_threadList.end());
     auto it = m_mapId.find(&thread);
     if ( it != m_mapId.end() )
@@ -60,6 +59,15 @@ void ThreadPool::remove(Thread &thread)
         it->second->join();
         delete it->second;
         m_mapId.erase(it);
-    }
-    
+    }    
 }
+
+uint32_t ThreadPool::numberOfThreads() const
+{
+    return m_threadList.size();
+}
+uint32_t ThreadPool::hwConcurrencyNumber() const
+{
+    return std::thread::hardware_concurrency();
+}
+

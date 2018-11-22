@@ -28,6 +28,10 @@ public:
     void add(Thread &thread);
     void remove(Thread &thread);
     
+    uint32_t numberOfThreads() const;
+    uint32_t hwConcurrencyNumber() const;
+    
+    
     ~ThreadPool();
 
 protected:

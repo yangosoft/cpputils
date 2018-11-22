@@ -26,7 +26,7 @@ public:
     }
     void trigger(Values... values)
     {
-        std::for_each(lstFunctions.begin(), lstFunctions.end(), [this](auto f) {
+        std::for_each(lstFunctions.begin(), lstFunctions.end(), [this, &values...](auto f) {
             f(values...);
         });
     }
