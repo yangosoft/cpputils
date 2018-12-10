@@ -1,3 +1,7 @@
+/* Original implementation came from https://www.redblobgames.com/pathfinding/a-star/implementation.html
+ * This implementation has several changes.
+ */
+
 #ifndef __CPPUTILS_GRAPH_H
 #define __CPPUTILS_GRAPH_H
 
