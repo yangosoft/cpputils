@@ -2,12 +2,6 @@
 #define __CCPUTILS_BTREE_h__
 
 
-#include <algorithm>
-#include <list>
-#include <memory>
-
-#include <functional>
-
 namespace CppUtils
 {
 template <typename KeyType>
