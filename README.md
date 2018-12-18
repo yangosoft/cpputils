@@ -13,6 +13,7 @@ C++14 utilites
 * CRTP and devirtualization example. Needs to be completed.
 * TCP socket client
 * TCP socket server
+* BTree
 
 Check examples folder and build them after install CppUtils.
 
