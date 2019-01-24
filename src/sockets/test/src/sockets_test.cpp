@@ -7,30 +7,45 @@
 namespace
 {
 
-
-TEST(ExampleTests, TestGet)
+std::string strSent("Hello world!");
+TEST(SocketTests, TestAsync)
 {
-    CppUtils::SocketClient s("localhost",8999);
-    s.tryConnect();
-   
-    
-    CppUtils::SocketServer server(8999, []( CppUtils::ISocket& client ){ 
-        
-        
-        
-        char buffer[64];
-        
-        client.readData(buffer,sizeof(buffer));
-        std::cout << std::string(buffer) << std::endl;
-        
     
     
+    
+    CppUtils::SocketClient s("localhost",11010);
+    
+    bool connected = s.tryConnect();
+    
+    CppUtils::SocketServer server(11010, []( CppUtils::ISocket& client ){ 
+        char buffer[128];
+        auto n = client.readData(buffer,sizeof(buffer));
+        EXPECT_GT(n,0);
+        if(n > 0)
+        {
+            buffer[n] = '\0';
+        }
+        EXPECT_EQ(strSent,std::string(buffer));
     });
     
     
-    server.serverListen();
+    auto fd = server.serverListen();
+    
+    EXPECT_NE(fd,-1);
+    
+    if( false == connected)
+    {
+        connected = s.tryConnect();
+        EXPECT_TRUE(connected);
+        if( false == connected)
+        {
+            server.disconnect();
+            s.disconnect();
+            return;
+        }
+    }
     server.doAccept();
-    bool ok = s.writeString(std::string("Hello world!"));
+    bool ok = s.writeString(strSent);
     
     server.disconnect();
     s.disconnect();

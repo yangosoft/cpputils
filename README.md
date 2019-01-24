@@ -14,6 +14,7 @@ C++14 utilites
 * TCP socket client
 * TCP socket server
 * BTree
+* Colors: RGB and LAB color converters and distance calculation
 
 Check examples folder and build them after install CppUtils.
 

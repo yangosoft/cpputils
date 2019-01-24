@@ -10,7 +10,7 @@ namespace
 {
 
 
-TEST(SignalTest, TestTest)
+TEST(TreeTest, TreeTest)
 {
         CppUtils::BTree<int> b;
 
