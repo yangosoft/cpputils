@@ -36,6 +36,7 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/threadpool)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/graphs)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/tree)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/misc/colors)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/misc/cypher)
 
 #add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/example/tcpsocket)
 #add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/example/tcpsecuresocket)
