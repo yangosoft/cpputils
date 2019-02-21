@@ -42,9 +42,9 @@ bool Gcrypt::init()
     return true;
 }
 
-bool Gcrypt::createKeys()
+bool Gcrypt::createKeys(const std::string& filename)
 {
-    char* fname = "keys.keys";
+    const char* fname = filename.c_str();
     FILE* lockf = fopen(fname, "wb");
     if (!lockf) {
         return false;
@@ -55,7 +55,7 @@ bool Gcrypt::createKeys()
     gcry_sexp_t rsa_parms;
     gcry_sexp_t rsa_keypair;
 
-    err = gcry_sexp_build(&rsa_parms, NULL, "(genkey (rsa (nbits 4:4096)))");
+    err = gcry_sexp_build(&rsa_parms, NULL, "(genkey (rsa (nbits 4:4096)(rsa-use-e 5:65539)))");
     if (err) {
         //xerr("gcrypt: failed to create rsa params");
         return false;

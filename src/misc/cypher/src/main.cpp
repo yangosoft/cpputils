@@ -1,14 +1,25 @@
+//Code from https://github.com/vedantk/gcrypt-example
+
+
 #include <iostream>
 
 #include <misc/cypher.hpp>
 #include <misc/gcrypt.hpp>
 
+gcry_error_t err;
+
+
 int main(int argc, char** argv)
 {
+  
+    
     CppUtils::Misc::Gcrypt c;
     std::cout << c.init() << std::endl;
-    c.createKeys();
-    gcry_error_t err;
+  
+    
+    c.createKeys("keys.keys");
+  
+    
     
     
     char* fname = "keys.keys";
@@ -36,6 +47,23 @@ int main(int argc, char** argv)
     gcry_sexp_t pubk = gcry_sexp_find_token(rsa_keypair, "public-key", 0);
     gcry_sexp_t privk = gcry_sexp_find_token(rsa_keypair, "private-key", 0);
 
+    {
+         FILE* lockf = fopen("keys.keys.private", "wb");
+        size_t rsa_len = c.get_keypair_size(4096);
+        void* rsa_buf = calloc(1, rsa_len);
+        if (!rsa_buf) {
+            return 0;
+            
+        }
+    
+        gcry_sexp_sprint(privk, GCRYSEXP_FMT_CANON, rsa_buf, rsa_len);
+         if (fwrite(rsa_buf, rsa_len, 1, lockf) != 1) {
+      
+            return 0;
+       
+        }
+    }
+    
     /* Create a message. */
     gcry_mpi_t msg;
     gcry_sexp_t data;

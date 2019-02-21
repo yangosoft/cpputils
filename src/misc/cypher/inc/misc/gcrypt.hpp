@@ -13,7 +13,7 @@ namespace CppUtils
         public:
             bool init();
             
-            bool createKeys();
+            bool createKeys(const std::string& filename);
             
             /* Estimate the size of the encrypted key pair. */
             size_t get_keypair_size(int nbits) const ;
