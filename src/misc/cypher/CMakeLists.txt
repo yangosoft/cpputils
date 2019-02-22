@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.8)
 
 project(Cypher VERSION ${CppUtils_VERSION_MAJOR}.${CppUtils_VERSION_MINOR} LANGUAGES CXX) 
 
+find_package(OpenSSL REQUIRED)
 
 include (GNUInstallDirs)
 include ("FindGCRYPT.cmake")
@@ -12,15 +13,17 @@ include_directories(inc)
 
 
 set(HEADER_FILES "inc/misc/cypher.hpp"
-"inc/misc/gcrypt.hpp")
+"inc/misc/gcrypt.hpp"
+"inc/misc/cipher2.hpp")
 
 set (SOURCE_FILES "src/main.cpp"
-"src/gcrypt.cpp")
+"src/gcrypt.cpp"
+"src/cipher2.cpp")
 
 
 
 add_executable(Cypher ${SOURCE_FILES})
-target_link_libraries(Cypher ${GCRYPT_LIBRARIES})
+target_link_libraries(Cypher ${GCRYPT_LIBRARIES} ${OPENSSL_LIBRARIES})
 
 
 

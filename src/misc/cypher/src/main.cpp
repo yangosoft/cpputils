@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+
+#include <misc/cipher2.hpp>
 #include <misc/cypher.hpp>
 #include <misc/gcrypt.hpp>
 
@@ -12,6 +14,9 @@ gcry_error_t err;
 int main(int argc, char** argv)
 {
   
+    
+    CppUtils::Misc::Cipher2 c2;
+    c2.encryptFile("/home/dzayas/custom/cpputils-github/src/public.pem");
     
     CppUtils::Misc::Gcrypt c;
     std::cout << c.init() << std::endl;
