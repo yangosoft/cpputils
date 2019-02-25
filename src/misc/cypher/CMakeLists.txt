@@ -14,11 +14,15 @@ include_directories(inc)
 
 set(HEADER_FILES "inc/misc/cypher.hpp"
 "inc/misc/gcrypt.hpp"
-"inc/misc/cipher2.hpp")
+"inc/misc/cipher2.hpp"
+"inc/misc/ikey.hpp"
+"inc/misc/pemkey.hpp")
+
 
 set (SOURCE_FILES "src/main.cpp"
 "src/gcrypt.cpp"
-"src/cipher2.cpp")
+"src/cipher2.cpp"
+"src/pemkey.cpp")
 
 
 

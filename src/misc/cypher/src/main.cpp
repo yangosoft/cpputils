@@ -52,6 +52,10 @@ int main(int argc, char** argv)
     unsigned char iv2[16] = {};
     unsigned int enclen = EVP_PKEY_size(evp_prikey);
     
+    for(auto i = 0; i < 16; ++i)
+    {
+        iv[i] = i;
+    }
     
     auto length = c3.envelope_seal(&evp_pubkey, plaintext,strlen((const char*)plaintext),&encKey, &ciphertextlength,iv,ciphertext);
     
@@ -71,11 +75,12 @@ int main(int argc, char** argv)
   
   
   //c3.seal();
-  return 0;
+  //return 0;
     
     CppUtils::Misc::Cipher2 c2;
     c2.encryptFile("/home/dzayas/custom/cpputils-github/src/public.pem");
     
+    return 0;
     CppUtils::Misc::Gcrypt c;
     std::cout << c.init() << std::endl;
   

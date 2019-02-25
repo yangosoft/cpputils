@@ -213,8 +213,8 @@ bool Cipher2::decryptFile(const std::string& pemCertificatePath, unsigned char* 
 
 RSA* Cipher2::getPublicKey(const std::string& pemCertificatePath)
 {
-    RSA *rsa = RSA_new();
-  BIO *bp_public = nullptr;
+  RSA *rsa = RSA_new();
+  
  
   
   BIO *keybio = BIO_new(BIO_s_file());
@@ -255,7 +255,7 @@ bool Cipher2::encryptFile(const std::string& pemCertificatePath)
   
     
   RSA *rsa = RSA_new();
-  BIO *bp_public = nullptr;
+  
  
   
   BIO *keybio = BIO_new(BIO_s_file());
@@ -263,14 +263,9 @@ bool Cipher2::encryptFile(const std::string& pemCertificatePath)
   rsa = PEM_read_bio_RSA_PUBKEY(keybio, &rsa, NULL, NULL);
 
   RSA_print(keybio, rsa, 0);
-  char buffer [2048];
-
-  /*while (BIO_read (keybio, buffer, 2048) > 0)
-  {
-      std::cout << "Reading BIO..." << std::endl;
-  }*/
   
-  BIO_free(bp_public);
+  
+
   
  
   if( rsa == nullptr)
@@ -320,14 +315,14 @@ int Cipher2::EVP_SealInit(EVP_CIPHER_CTX *ctx, const EVP_CIPHER *type,
     if (EVP_CIPHER_CTX_rand_key(ctx, key) <= 0)
         return 0;
 
-    if (EVP_CIPHER_CTX_iv_length(ctx)
+    /*if (EVP_CIPHER_CTX_iv_length(ctx)
             && RAND_bytes(iv, EVP_CIPHER_CTX_iv_length(ctx)) <= 0)
         goto err;
 
     for(auto i = 0; i < EVP_CIPHER_CTX_iv_length(ctx); ++i)
     {
         iv[i] = i;
-    }
+    }*/
     
     if (!EVP_EncryptInit_ex(ctx, NULL, NULL, key, iv))
         goto err;
