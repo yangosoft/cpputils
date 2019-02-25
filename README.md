@@ -70,6 +70,6 @@ make
 
 
 ## Future work
-* Thread Pool
+* Crypto utils with OpenSSL and gcrypt (work in progress)
 * UDP Client/Server
 * Async versions of them
