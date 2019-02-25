@@ -18,7 +18,7 @@ namespace CppUtils
             bool load(const std::string &password) override;
             RSA* getAsRSA() override;
             int getPassCb(char *buf, int size, int rwflag, void *userdata);
-            
+            ~PemKey() = default; //TODO: purge key and password
         private:
             std::string m_path;
             std::string m_password;

@@ -9,6 +9,8 @@
 #include <misc/gcrypt.hpp>
 #include <misc/pemkey.hpp>
 
+#include <misc/symmetricalcipher.hpp>
+
 
 gcry_error_t err;
 
@@ -21,6 +23,31 @@ int main(int argc, char** argv)
     pr.load("123456");
     RSA *rsaPr = pr.getAsRSA();
     RSA *rsaPu = pu.getAsRSA();
+    
+    CppUtils::Misc::SymmetricalCipher sc;
+    
+        std::size_t iSize = 128;
+        std::size_t oSize = 512;
+        char inBuffer[iSize*4];
+        char outBuffer[oSize];
+        char outBuffer2[oSize];
+        
+        
+        sprintf(inBuffer, "%s", "Hello world :)");
+        
+        
+        
+        auto n1 = sc.encrypt( inBuffer,strlen(inBuffer), outBuffer, oSize, pu );
+        std::cout << "n1 " << n1 << std::endl;
+        std::cout << std::string(outBuffer) << std::endl;
+        
+        auto n = sc.decrypt( outBuffer,n1, outBuffer2, oSize, pr );
+        std::cout << "n " << n << std::endl;
+        std::cout << std::string(outBuffer2) << std::endl;
+        
+        return 0;
+    
+
     
     
   CppUtils::Misc::Cipher2 c3;

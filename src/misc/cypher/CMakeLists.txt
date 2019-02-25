@@ -16,13 +16,16 @@ set(HEADER_FILES "inc/misc/cypher.hpp"
 "inc/misc/gcrypt.hpp"
 "inc/misc/cipher2.hpp"
 "inc/misc/ikey.hpp"
-"inc/misc/pemkey.hpp")
+"inc/misc/icipher.hpp"
+"inc/misc/pemkey.hpp"
+"inc/misc/symmetricalcipher.hpp")
 
 
 set (SOURCE_FILES "src/main.cpp"
 "src/gcrypt.cpp"
 "src/cipher2.cpp"
-"src/pemkey.cpp")
+"src/pemkey.cpp"
+"src/symmetricalcipher.cpp")
 
 
 
