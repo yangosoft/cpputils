@@ -7,16 +7,26 @@
 #include <misc/cipher2.hpp>
 #include <misc/cypher.hpp>
 #include <misc/gcrypt.hpp>
+#include <misc/pemkey.hpp>
+
 
 gcry_error_t err;
 
 
 int main(int argc, char** argv)
 {
+    
+    CppUtils::Misc::PemKey pr{"/home/dzayas/custom/cpputils-github/src/private.pem"};
+    CppUtils::Misc::PemKey pu{"/home/dzayas/custom/cpputils-github/src/public.pem"};
+    pr.load("123456");
+    RSA *rsaPr = pr.getAsRSA();
+    RSA *rsaPu = pu.getAsRSA();
+    
+    
   CppUtils::Misc::Cipher2 c3;
   
-    RSA *rsa_pubkey= c3.getPublicKey("/home/dzayas/custom/cpputils-github/src/public.pem"); // RSA_new();
-    RSA *rsa_prikey= c3.getPrivateKey("/home/dzayas/custom/cpputils-github/src/private.pem"); // RSA_new();
+    RSA *rsa_pubkey= pu.getAsRSA(); //c3.getPublicKey("/home/dzayas/custom/cpputils-github/src/public.pem"); // RSA_new();
+    RSA *rsa_prikey= pr.getAsRSA(); //c3.getPrivateKey("/home/dzayas/custom/cpputils-github/src/private.pem"); // RSA_new();
     EVP_PKEY *evp_pubkey = EVP_PKEY_new();
     EVP_PKEY *evp_prikey = EVP_PKEY_new();
 //     FILE *rsa_prikey_file = NULL;
