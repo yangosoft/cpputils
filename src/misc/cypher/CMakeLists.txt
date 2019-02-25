@@ -18,14 +18,14 @@ set(HEADER_FILES "inc/misc/cypher.hpp"
 "inc/misc/ikey.hpp"
 "inc/misc/icipher.hpp"
 "inc/misc/pemkey.hpp"
-"inc/misc/symmetricalcipher.hpp")
+"inc/misc/asymmetricalcipher.hpp")
 
 
 set (SOURCE_FILES "src/main.cpp"
 "src/gcrypt.cpp"
 "src/cipher2.cpp"
 "src/pemkey.cpp"
-"src/symmetricalcipher.cpp")
+"src/asymmetricalcipher.cpp")
 
 
 

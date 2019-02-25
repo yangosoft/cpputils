@@ -1,17 +1,17 @@
 
-#include <misc/symmetricalcipher.hpp>
+#include <misc/asymmetricalcipher.hpp>
 
 using namespace CppUtils::Misc;
 
 
-SymmetricalCipher::SymmetricalCipher()
+AsymmetricalCipher::AsymmetricalCipher()
 {
     OpenSSL_add_all_algorithms();
     OpenSSL_add_all_ciphers();
 }
 
 
-std::size_t SymmetricalCipher::encrypt(const char *inputBuffer, std::size_t inputLength, char *outputBuffer , std::size_t &outLength  , IKey& key)
+std::size_t AsymmetricalCipher::encrypt(const char *inputBuffer, std::size_t inputLength, char *outputBuffer , std::size_t &outLength  , IKey& key)
 {
 
   RSA *rsa = key.getAsRSA();
@@ -43,7 +43,7 @@ std::size_t SymmetricalCipher::encrypt(const char *inputBuffer, std::size_t inpu
     
 }
 
-std::size_t SymmetricalCipher::decrypt(const char *inputBuffer, std::size_t inputLength, char *outputBuffer , std::size_t &outLength  , IKey& key)
+std::size_t AsymmetricalCipher::decrypt(const char *inputBuffer, std::size_t inputLength, char *outputBuffer , std::size_t &outLength  , IKey& key)
 {
     RSA *rsa = key.getAsRSA();
     

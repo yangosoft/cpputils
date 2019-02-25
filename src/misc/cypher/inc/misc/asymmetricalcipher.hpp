@@ -1,5 +1,5 @@
-#ifndef __CCPUTILS_ISYMMETRICCIPHER_h__
-#define __CCPUTILS_ISYMMETRICCIPHER_h__
+#ifndef __CCPUTILS_ASYMMETRICALCIPHER_h__
+#define __CCPUTILS_ASYMMETRICALCIPHER_h__
 
 
 #include <misc/icipher.hpp>
@@ -17,14 +17,14 @@ namespace CppUtils
     namespace Misc
     {
         
-        class SymmetricalCipher: public ICipher
+        class AsymmetricalCipher: public ICipher
         {
         public:
-            SymmetricalCipher();               
+            AsymmetricalCipher();               
             std::size_t encrypt(const char *inputBuffer, std::size_t inputLength, char *outputBuffer , std::size_t &outLength  , IKey& key)  override;
             std::size_t decrypt(const char *inputBuffer, std::size_t inputLength, char *outputBuffer , std::size_t &outLength  , IKey& key)  override;
             
-            ~SymmetricalCipher() = default;
+            ~AsymmetricalCipher() = default;
         };
     }
 }

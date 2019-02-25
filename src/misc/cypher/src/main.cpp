@@ -9,7 +9,7 @@
 #include <misc/gcrypt.hpp>
 #include <misc/pemkey.hpp>
 
-#include <misc/symmetricalcipher.hpp>
+#include <misc/asymmetricalcipher.hpp>
 
 
 gcry_error_t err;
@@ -24,7 +24,7 @@ int main(int argc, char** argv)
     RSA *rsaPr = pr.getAsRSA();
     RSA *rsaPu = pu.getAsRSA();
     
-    CppUtils::Misc::SymmetricalCipher sc;
+    CppUtils::Misc::AsymmetricalCipher sc;
     
         std::size_t iSize = 128;
         std::size_t oSize = 512;
