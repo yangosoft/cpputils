@@ -51,7 +51,7 @@ class Simple final: public Curve
 public:
     float adjust( float x ) const final
     {
-        return x*0.8;
+        return x*0.8f;
     }
     ~Simple() final = default;
 };

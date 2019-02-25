@@ -13,7 +13,65 @@ gcry_error_t err;
 
 int main(int argc, char** argv)
 {
+  CppUtils::Misc::Cipher2 c3;
   
+    RSA *rsa_pubkey= c3.getPublicKey("/home/dzayas/custom/cpputils-github/src/public.pem"); // RSA_new();
+    RSA *rsa_prikey= c3.getPrivateKey("/home/dzayas/custom/cpputils-github/src/private.pem"); // RSA_new();
+    EVP_PKEY *evp_pubkey = EVP_PKEY_new();
+    EVP_PKEY *evp_prikey = EVP_PKEY_new();
+//     FILE *rsa_prikey_file = NULL;
+//     FILE *rsa_pubkey_file = NULL;
+//     rsa_pubkey_file = fopen("pubkey.pem", "r");
+//     if (!rsa_pubkey_file)
+//     {
+//         fprintf(stderr, "Error loading PEM RSA Public Key File.\n");
+//         exit(2);
+//     }
+
+//     PEM_read_RSA_PUBKEY(rsa_pubkey_file, &rsa_pubkey,NULL, NULL);
+
+    EVP_PKEY_assign_RSA(evp_pubkey,rsa_pubkey);
+
+//     rsa_prikey_file = fopen("key.pem", "r");
+//     if (!rsa_prikey_file)
+//     {
+//         fprintf(stderr, "Error loading PEM RSA private Key File.\n");
+//         exit(2);
+//     }
+//     PEM_read_RSAPrivateKey(rsa_prikey_file, &rsa_prikey,NULL, NULL);
+
+    EVP_PKEY_assign_RSA(evp_prikey,rsa_prikey);
+
+
+    unsigned char *plaintext = (unsigned char*) "The quick brown fox jumps over thes lazy dog";
+    unsigned char ciphertext[256] = {};
+    unsigned char plaintextt[256] = {};
+    int ciphertextlength;
+    unsigned char *encKey  = (unsigned char*)malloc(RSA_size(rsa_pubkey));
+    unsigned char iv[16] = {};
+    unsigned char iv2[16] = {};
+    unsigned int enclen = EVP_PKEY_size(evp_prikey);
+    
+    
+    auto length = c3.envelope_seal(&evp_pubkey, plaintext,strlen((const char*)plaintext),&encKey, &ciphertextlength,iv,ciphertext);
+    
+    
+    for(auto i = 0; i < 16; ++i)
+    {
+        iv2[i] = i;
+    }
+    c3.envelope_open(evp_prikey, ciphertext, length, encKey, enclen,iv2,plaintextt);
+
+    std::cout <<"Result: "<<plaintextt<< std::endl;
+
+    EVP_PKEY_free(evp_pubkey);
+    EVP_PKEY_free(evp_prikey);
+//     free(ciphertext);
+//     free(encKey);
+  
+  
+  //c3.seal();
+  return 0;
     
     CppUtils::Misc::Cipher2 c2;
     c2.encryptFile("/home/dzayas/custom/cpputils-github/src/public.pem");
