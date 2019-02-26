@@ -10,7 +10,11 @@
 #include <misc/pemkey.hpp>
 
 #include <misc/asymmetricalcipher.hpp>
+#include <misc/sealcipher.hpp>
 
+
+#include <cstdint>
+#include <vector>
 
 gcry_error_t err;
 
@@ -24,7 +28,9 @@ int main(int argc, char** argv)
     RSA *rsaPr = pr.getAsRSA();
     RSA *rsaPu = pu.getAsRSA();
     
-    CppUtils::Misc::AsymmetricalCipher sc;
+    CppUtils::Misc::SealCipher sealC;
+    
+     CppUtils::Misc::AsymmetricalCipher sc;
     
         std::size_t iSize = 128;
         std::size_t oSize = 512;
@@ -35,17 +41,51 @@ int main(int argc, char** argv)
         
         sprintf(inBuffer, "%s", "Hello world :)");
         
+    
+    std::vector<std::uint8_t> myIv(16);
+    
+    std::vector<std::uint8_t> myCipherKey(EVP_MAX_KEY_LENGTH);
+    
+    for(auto i = 0; i < myIv.size(); ++i)
+    {
+        myIv.at(i) = 'a'+i;
+    }
+    
+    for(auto i = 0; i < myCipherKey.size(); ++i)
+    {
+        myCipherKey.at(i) = '0'+i;
+    }
+    
+    sealC.setIV(myIv);
+    sealC.setCipherKey(myCipherKey);
+    
+    auto n1 = sealC.encrypt( inBuffer,strlen(inBuffer), outBuffer, oSize, pu );
+    std::cout << "n1 " << std::dec << n1 << std::endl;
+    std::cout << std::string(outBuffer) << std::endl;
+    
+    
+        
+    auto n = sealC.decrypt( outBuffer,n1, outBuffer2, oSize, pr );
+    std::cout << "n " << std::dec << n << std::endl;
+    std::cout << std::string(outBuffer2) << std::endl;
+    
+    return 0;
+    
+    
+    
+    
+       
         
         
-        auto n1 = sc.encrypt( inBuffer,strlen(inBuffer), outBuffer, oSize, pu );
-        std::cout << "n1 " << n1 << std::endl;
-        std::cout << std::string(outBuffer) << std::endl;
-        
-        auto n = sc.decrypt( outBuffer,n1, outBuffer2, oSize, pr );
-        std::cout << "n " << n << std::endl;
-        std::cout << std::string(outBuffer2) << std::endl;
-        
-        return 0;
+//     auto n1 = sc.encrypt( inBuffer,strlen(inBuffer), outBuffer, oSize, pu );
+//     std::cout << "n1 " << n1 << std::endl;
+//     std::cout << std::string(outBuffer) << std::endl;
+//         
+//     auto n = sc.decrypt( outBuffer,n1, outBuffer2, oSize, pr );
+//     std::cout << "n " << n << std::endl;
+//     std::cout << std::string(outBuffer2) << std::endl;
+//         
+//     return 0;
     
 
     
