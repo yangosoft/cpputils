@@ -22,8 +22,8 @@ gcry_error_t err;
 int main(int argc, char** argv)
 {
     
-    CppUtils::Misc::PemKey pr{"/home/dzayas/custom/cpputils-github/src/private.pem"};
-    CppUtils::Misc::PemKey pu{"/home/dzayas/custom/cpputils-github/src/public.pem"};
+    CppUtils::Misc::PemKey pr{"/tmp/private.pem"};
+    CppUtils::Misc::PemKey pu{"/tmp/public.pem"};
     pr.load("123456");
     RSA *rsaPr = pr.getAsRSA();
     RSA *rsaPu = pu.getAsRSA();

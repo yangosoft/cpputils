@@ -44,13 +44,63 @@ std::size_t SealCipher::encrypt(const char *inputBuffer, std::size_t inputLength
     }
     
     
-    int ciphertextlength;
+    
+        
+        EVP_CIPHER_CTX *ctx;
+
+	int ciphertext_len;
+
+	int len;
+        {
+
+	/* Create and initialise the context */
+	if(!(ctx = EVP_CIPHER_CTX_new())) 
+        {
+            std::cout << "error " << __LINE__ << std::endl;
+        }
+
+        
+        int ret1 = EVP_EncryptInit_ex(ctx, EVP_aes_256_cbc(), NULL, &m_cipherKey[0], &m_iv[0]);
+	
+	if(1 != ret1)
+        {
+            std::cout << "error " << __LINE__ << std::endl;
+        }
+
+	/* Provide the message to be encrypted, and obtain the encrypted output.
+	 * EVP_SealUpdate can be called multiple times if necessary
+	 */
+	if(1 != EVP_SealUpdate(ctx, reinterpret_cast<unsigned char *>(outputBuffer), &len, reinterpret_cast<const unsigned char *>(inputBuffer), inputLength))
+        {
+            std::cout << "error " << __LINE__ << std::endl;
+        }
+	ciphertext_len = len;
+
+	/* Finalise the encryption. Further ciphertext bytes may be written at
+	 * this stage.
+	 */
+	if(1 != EVP_SealFinal(ctx, reinterpret_cast<unsigned char *>(outputBuffer) + len, &len)) 
+        {
+            std::cout << "error " << __LINE__ << std::endl;
+        }
+	ciphertext_len += len;
+
+	/* Clean up */
+	EVP_CIPHER_CTX_free(ctx);
+        
+    }
+    
+    
+    
+    
+    
+    /*int ciphertextlength;
     unsigned char *encKey  =  &m_cipherKey[0]; // new std::uint8_t[ RSA_size(rsa_pubkey) ];
     std::uint8_t *iv = &m_iv[0];
 
     
     auto ret = envelope_seal(&evp_pubkey,reinterpret_cast<const unsigned char *>(inputBuffer),inputLength,&encKey, &ciphertextlength,iv,reinterpret_cast<unsigned char *>(outputBuffer));
-    std::cout << "envelope_seal ret " << ret << std::endl;
+    std::cout << "envelope_seal ret " << ret << std::endl;*/
     
     
     
@@ -62,7 +112,7 @@ std::size_t SealCipher::encrypt(const char *inputBuffer, std::size_t inputLength
     
     
     
-    return ret;
+    return ciphertext_len;
 }
 
 std::size_t SealCipher::decrypt(const char *inputBuffer, std::size_t inputLength, char *outputBuffer , std::size_t &outLength  , IKey& key)
@@ -88,19 +138,72 @@ std::size_t SealCipher::decrypt(const char *inputBuffer, std::size_t inputLength
 
 
     EVP_PKEY_assign_RSA(evp_prikey,rsa_prikey);
-    std::uint8_t *encKey  =  &m_cipherKey[0];
     
-    unsigned int enclen = EVP_PKEY_size(evp_prikey);
-    std::uint8_t *iv = &m_iv[0];
     
-    auto ret = envelope_open(evp_prikey, reinterpret_cast<const unsigned char *>(inputBuffer), inputLength, encKey, enclen,iv,reinterpret_cast<unsigned char *>(outputBuffer));
-    if( ret <= 0)
+    EVP_CIPHER_CTX *ctx;
+
+	int len;
+
+	int plaintext_len;
     {
-        //TODO throw
-        ret = 0;
+        
+
+
+	/* Create and initialise the context */
+	if(!(ctx = EVP_CIPHER_CTX_new())) 
+        {
+            std::cout << "error " << __LINE__ << std::endl;
+        }
+
+	/* Initialise the decryption operation. The asymmetric private key is
+	 * provided and priv_key, whilst the encrypted session key is held in
+	 * encrypted_key */
+	if(1 != EVP_OpenInit(ctx, EVP_aes_256_cbc(), &m_cipherKey[0], m_cipherKey.size(), &m_iv[0], evp_prikey))
+        {
+            std::cout << "error " << __LINE__ << std::endl;
+        }
+		
+
+	/* Provide the message to be decrypted, and obtain the plaintext output.
+	 * EVP_OpenUpdate can be called multiple times if necessary
+	 */
+	if(1 != EVP_OpenUpdate(ctx, reinterpret_cast<unsigned char * >(outputBuffer), &len, reinterpret_cast<const unsigned char * >(inputBuffer), inputLength))
+        {
+            std::cout << "error " << __LINE__ << std::endl;
+        }
+            
+            
+	plaintext_len = len;
+
+	/* Finalise the decryption. Further plaintext bytes may be written at
+	 * this stage.
+	 */
+	if(1 != EVP_OpenFinal(ctx, reinterpret_cast<unsigned char * >(outputBuffer) + len, &len)) 
+        {
+            std::cout << "error " << __LINE__ << std::endl;
+        }
+	plaintext_len += len;
+
+	/* Clean up */
+	EVP_CIPHER_CTX_free(ctx);
     }
     
-    return ret;
+    
+    
+//     std::uint8_t *encKey  =  &m_cipherKey[0];
+//     
+//     unsigned int enclen = EVP_PKEY_size(evp_prikey);
+//     std::uint8_t *iv = &m_iv[0];
+//     
+//     
+//     auto ret = envelope_open(evp_prikey, reinterpret_cast<const unsigned char *>(inputBuffer), inputLength, encKey, enclen,iv,reinterpret_cast<unsigned char *>(outputBuffer));
+//     if( ret <= 0)
+//     {
+//         //TODO throw
+//         ret = 0;
+//     }
+    
+    return plaintext_len;
 }
 
 int SealCipher::EVP_SealInit(EVP_CIPHER_CTX *ctx, const EVP_CIPHER *type,
@@ -360,6 +463,8 @@ err:
 
 	return plaintext_len;
 }*/
+        
+        
         
 int SealCipher::envelope_seal(EVP_PKEY **pub_key, const unsigned char *plaintext, int plaintext_len,
 	unsigned char **encrypted_key, int *encrypted_key_len, unsigned char *iv,
