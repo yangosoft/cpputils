@@ -8,6 +8,8 @@
 #include <openssl/evp.h>
 #include <openssl/engine.h>
 
+#include <vector>
+
 #include <cstdlib>
 
 
@@ -21,13 +23,31 @@ namespace CppUtils
         {
         public:
             SealCipher();               
-            std::size_t encrypt(const char *inputBuffer, std::size_t inputLength, char *outputBuffer , std::size_t &outLength  , IKey& key)  override;
-            std::size_t decrypt(const char *inputBuffer, std::size_t inputLength, char *outputBuffer , std::size_t &outLength  , IKey& key)  override;
-            ~SealCipher() = default;
-        private:
-            int envelope_seal(EVP_PKEY **pub_key, unsigned char *plaintext, int plaintext_len, unsigned char **encrypted_key, int *encrypted_key_len, unsigned char *iv, 	unsigned char *ciphertext);
             
-            int envelope_open(EVP_PKEY *priv_key, unsigned char *ciphertext, int ciphertext_len, unsigned char *encrypted_key, int encrypted_key_len, unsigned char *iv, unsigned char *plaintext);
+            std::size_t encrypt(const char *inputBuffer, std::size_t inputLength, char *outputBuffer , std::size_t &outLength  , IKey& key)  override;
+            
+            std::size_t decrypt(const char *inputBuffer, std::size_t inputLength, char *outputBuffer , std::size_t &outLength  , IKey& key)  override;
+            
+            void setIV(const std::vector<std::uint8_t>& iv);
+            
+            void setCipherKey(const std::vector<std::uint8_t>& cipherKey);
+            
+            
+            
+        private:
+            
+            std::vector<std::uint8_t> m_iv;
+            std::vector<std::uint8_t> m_cipherKey;
+            
+                /*int envelope_seal(EVP_PKEY **pub_key, unsigned char *plaintext, int plaintext_len,
+	unsigned char **encrypted_key, int *encrypted_key_len, unsigned char *iv,
+	unsigned char *ciphertext);
+            int envelope_open(EVP_PKEY *priv_key, unsigned char *ciphertext, int ciphertext_len,
+	unsigned char *encrypted_key, int encrypted_key_len, unsigned char *iv,
+	unsigned char *plaintext);*/
+            int envelope_seal(EVP_PKEY **pub_key, const unsigned char *plaintext, int plaintext_len, unsigned char **encrypted_key, int *encrypted_key_len, unsigned char *iv, 	unsigned char *ciphertext);
+            
+            int envelope_open(EVP_PKEY *priv_key, const unsigned char *ciphertext, int ciphertext_len, unsigned char *encrypted_key, int encrypted_key_len, unsigned char *iv, unsigned char *plaintext);
             
             int EVP_SealInit(EVP_CIPHER_CTX *ctx, const EVP_CIPHER *type, unsigned char **ek, int *ekl, unsigned char *iv, EVP_PKEY **pubk, int npubk);
         };
