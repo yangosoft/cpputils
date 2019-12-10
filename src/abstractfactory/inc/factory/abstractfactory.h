@@ -1,6 +1,7 @@
 #ifndef __CPPUTILS_FACTORY3_H
 #define __CPPUTILS_FACTORY3_H
 
+#include <functional>
 #include <map>
 #include <vector>
 #include <utility>

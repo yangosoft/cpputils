@@ -17,9 +17,9 @@ TEST(SocketTests, TestAsync)
     
     bool connected = s.tryConnect();
     
-    CppUtils::SocketServer server(11010, []( CppUtils::ISocket& client ){ 
+    CppUtils::SocketServer server(11010, []( std::unique_ptr<CppUtils::ISocket> client ){ 
         char buffer[128];
-        auto n = client.readData(buffer,sizeof(buffer));
+        auto n = client->readData(buffer,sizeof(buffer));
         EXPECT_GT(n,0);
         if(n > 0)
         {

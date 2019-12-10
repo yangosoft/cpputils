@@ -40,8 +40,8 @@ void ISocketServer::disconnect()
 void ISocketServer::doAccept()
 {
     int32_t fdClient = accept(m_fdSocket, nullptr, nullptr);
-    Socket s(fdClient);
-    fCallback(s);
+    auto s = std::make_unique<Socket>(fdClient);
+    fCallback(std::move(s));
 }
 
 int ISocketServer::getFdSocket() const

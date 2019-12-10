@@ -5,6 +5,7 @@
 
 #include <cstdint>
 #include <functional>
+#include <memory>
 
 #include "isocket.h"
 
@@ -16,7 +17,7 @@ class ISocketServer
 {
   
   public:
-    using OnNewClientCallback =  std::function< void(ISocket& fdClient) >;
+    using OnNewClientCallback =  std::function< void(std::unique_ptr<ISocket> fdClient) >;
     ISocketServer(uint32_t port, OnNewClientCallback onNewClientCallback);
     
     virtual int serverListen();
