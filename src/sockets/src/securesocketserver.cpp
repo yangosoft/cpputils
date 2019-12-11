@@ -46,7 +46,7 @@ m_key(std::move(key))
     if (ret < 0)
     {
         std::string msg("Error initializing gnutls " + std::to_string(ret));
-        std::cout << msg << std::endl;
+        std::cerr << msg << std::endl;
         throw std::logic_error(msg);
     }
 
@@ -69,7 +69,7 @@ m_key(std::move(key))
     ret = gnutls_certificate_set_x509_key_file2 (x509_cred, m_certificate.c_str(), m_key.c_str()
             , GNUTLS_X509_FMT_PEM,"cpputils",0);
     
-    std::cout << "key_file2 " << ret << std::endl;
+    std::cerr << "key_file2 " << ret << std::endl;
 
     gnutls_certificate_set_ocsp_status_request_file(x509_cred, OCSP_STATUS_FILE.c_str(), 0);
 
@@ -92,7 +92,7 @@ m_key(std::move(key))
     if (0 != status)
     {
         std::string msg("Something went wrong in bind " + std::to_string(status));
-        std::cout << msg << std::endl;
+        std::cerr << msg << std::endl;
         throw std::logic_error(msg);
         return;
     }
@@ -103,7 +103,7 @@ m_key(std::move(key))
 
 void SecureSocketServer::disconnect()
 {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
+    std::cerr << __PRETTY_FUNCTION__ << std::endl;
     close(m_fdSocket);
     gnutls_deinit(session);
     gnutls_certificate_free_credentials(x509_cred);
@@ -113,7 +113,7 @@ void SecureSocketServer::disconnect()
 
 void SecureSocketServer::doAccept()
 {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
+    std::cerr << __PRETTY_FUNCTION__ << std::endl;
     
     gnutls_init(&session, GNUTLS_SERVER);
     gnutls_priority_set(session, priority_cache);
@@ -143,7 +143,7 @@ void SecureSocketServer::doAccept()
         gnutls_deinit(session);
         std::string err(gnutls_strerror(ret));
         err = "Handshake has failed: " + err;
-        std::cout << err << std::endl;
+        std::cerr << err << std::endl;
         throw std::logic_error(err);
     }
 

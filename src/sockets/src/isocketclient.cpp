@@ -18,9 +18,24 @@ m_port(port)
 {
 }
 
+
+ISocketClient::ISocketClient(const ISocketClient &other)
+{
+    m_host = other.m_host;
+    m_port = other.m_port;
+}
+    
+ISocketClient& ISocketClient::operator=(const ISocketClient &other)
+{
+    m_host = other.m_host;
+    m_port = other.m_port;
+    
+    return *this;
+}
+
 int32_t ISocketClient::tryConnect()
 {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
+    std::cerr << __PRETTY_FUNCTION__ << std::endl;
     int sockfd = 0;
 
     struct sockaddr_in servAddr{};
@@ -32,7 +47,7 @@ int32_t ISocketClient::tryConnect()
 
     if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     {
-        std::cout << "Error : Could not create socket \n" << std::endl;
+        std::cerr << "Error : Could not create socket \n" << std::endl;
         return false;
     }
 
@@ -45,7 +60,7 @@ int32_t ISocketClient::tryConnect()
     he = gethostbyname(m_host.c_str());
     if (he == nullptr)
     {
-        std::cout << "Error gethostbyname()" << std::endl;
+        std::cerr << "Error gethostbyname()" << std::endl;
         return false;
     }
 
@@ -54,7 +69,7 @@ int32_t ISocketClient::tryConnect()
 
     if (connect(sockfd, reinterpret_cast<struct sockaddr *> (&servAddr), sizeof (servAddr)) < 0)
     {
-        std::cout << "Error connecting socket" << std::endl;
+        std::cerr << "Error connecting socket" << std::endl;
         return false;
     }
 

@@ -17,6 +17,11 @@ namespace CppUtils
 class ISocket  {
 public:
     ISocket(int32_t fdSocket);
+    ISocket(const ISocket &other);
+    
+    ISocket& operator=(const ISocket &other);
+    
+    
     virtual void disconnect();
     virtual ssize_t writeData(const char *data, size_t size) const;    
     virtual bool writeString(const std::string &data) const;    

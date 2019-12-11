@@ -19,6 +19,9 @@ class ISocketServer
   public:
     using OnNewClientCallback =  std::function< void(std::unique_ptr<ISocket> fdClient) >;
     ISocketServer(uint32_t port, OnNewClientCallback onNewClientCallback);
+    ISocketServer(const ISocketServer &other);
+    ISocketServer& operator=(const ISocketServer &other);
+    
     
     virtual int serverListen();
     virtual void doAccept();

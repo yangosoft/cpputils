@@ -38,7 +38,7 @@ ISocketServer(port, onNewClientCallback)
     int status = bind(fdSck, reinterpret_cast<struct sockaddr*>(&servAddr), sizeof(servAddr));
     if ( 0 != status )
     {
-        std::cout << "Something went wrong in bind" << std::endl;
+        std::cerr << "Something went wrong in bind" << std::endl;
        
         return;
     }

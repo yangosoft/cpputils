@@ -20,12 +20,28 @@ ISocketServer::ISocketServer(uint32_t port, OnNewClientCallback onNewClientCallb
     
 }
 
+ISocketServer::ISocketServer(const ISocketServer &other)
+{
+    m_fdSocket = other.m_fdSocket;
+    m_port = other.m_port;
+    fCallback = other.fCallback;    
+}
+    
+ISocketServer& ISocketServer::operator=(const ISocketServer &other)
+{
+    m_fdSocket = other.m_fdSocket;
+    m_port = other.m_port;
+    fCallback = other.fCallback;
+    
+    return *this;
+}
+
 int ISocketServer::serverListen()
 {
     int32_t status = listen(m_fdSocket, 1024);
     if ( 0 != status )
     {
-        std::cout << "Something went wrong in listen" << std::endl;  
+        std::cerr << "Something went wrong in listen" << std::endl;  
     }
     
     return status;

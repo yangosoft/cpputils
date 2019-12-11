@@ -29,7 +29,7 @@ Socket(-1)
 
 int32_t SocketClient::tryConnect()
 {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
+    std::cerr << __PRETTY_FUNCTION__ << std::endl;
     m_fdSocket = ISocketClient::tryConnect();
     return m_fdSocket;
 }

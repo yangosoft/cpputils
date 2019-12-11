@@ -12,6 +12,9 @@ class ISocketClient {
 public:
     
     ISocketClient(std::string ip, uint16_t port);
+    ISocketClient(const ISocketClient &other);
+    ISocketClient& operator=(const ISocketClient &other);
+    
     virtual int32_t tryConnect();
     virtual ~ISocketClient() = default;
 

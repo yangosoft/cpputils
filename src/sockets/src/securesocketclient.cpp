@@ -30,7 +30,7 @@ SecureSocketClient::~SecureSocketClient()
 
 int32_t SecureSocketClient::tryConnect()
 {
-    std::cout << __PRETTY_FUNCTION__ << std::endl;
+    std::cerr << __PRETTY_FUNCTION__ << std::endl;
     m_fdSocket = ISocketClient::tryConnect();
     
     
@@ -51,7 +51,7 @@ int32_t SecureSocketClient::tryConnect()
     ret = gnutls_certificate_set_x509_key_file2 (xcred, m_certificate.c_str(), m_key.c_str()
             , GNUTLS_X509_FMT_PEM,"cpputils",0);
     
-    std::cout << "key_file2 " << ret << std::endl;
+    std::cerr << "key_file2 " << ret << std::endl;
 
 
     /* Initialize TLS session */
@@ -90,13 +90,13 @@ int32_t SecureSocketClient::tryConnect()
         }
         std::string err{gnutls_strerror(ret)};
         err = "Handshake failed " + err;
-        std::cout << err << std::endl;
+        std::cerr << err << std::endl;
         throw std::logic_error(err);
     }
 
     
     char *desc = gnutls_session_get_desc(session);
-    std::cout << "- Session info: " << desc << std::endl;
+    std::cerr << "- Session info: " << desc << std::endl;
     gnutls_free(desc);
 
 
