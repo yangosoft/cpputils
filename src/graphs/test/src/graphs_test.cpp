@@ -1,6 +1,6 @@
 #include <limits.h>
 
-#include <cpputils/graphs/graph.h>
+#include <graphs/graph.h>
 #include <gtest/gtest.h>
 
 #include <iostream>

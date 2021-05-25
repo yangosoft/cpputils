@@ -37,6 +37,8 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/graphs)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/tree)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/misc/colors)
 
+#add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/namedpipes)
+
 #add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/example/tcpsocket)
 #add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/example/tcpsecuresocket)
 #add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/example/tcpepollserver)

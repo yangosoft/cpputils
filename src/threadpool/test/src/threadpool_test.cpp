@@ -1,7 +1,7 @@
 #include <limits.h>
 
-#include <cpputils/threadpool/thread.h>
-#include <cpputils/threadpool/threadpool.h>
+#include <threadpool/thread.h>
+#include <threadpool/threadpool.h>
 
 
 

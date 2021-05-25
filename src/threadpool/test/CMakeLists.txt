@@ -32,7 +32,7 @@ file(GLOB SRCS ${CMAKE_CURRENT_SOURCE_DIR}/test/src/*.cpp)
 message("LIBS  ${THREADPOOL_LIBRARIES} ${GTEST_BOTH_LIBRARIES}")
 
 add_executable(Test_threadpool ${SRCS})
-
+target_include_directories(Test_threadpool PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc)
 target_link_libraries(Test_threadpool ${GTEST_BOTH_LIBRARIES} ${THREADPOOL_LIBRARIES} ${GNUTLS_LIBRARIES})
 
 add_test(ThreadPoolTests Test_threadpool --gtest_output=xml)

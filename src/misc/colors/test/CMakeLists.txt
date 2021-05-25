@@ -18,7 +18,7 @@ endif()
 file(GLOB SRCS ${CMAKE_CURRENT_SOURCE_DIR}/test/src/*.cpp)
 message("FILES*** ${SRCS}")
 add_executable(Test_colors ${SRCS})
-
+target_include_directories(Test_colors PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc)
 target_link_libraries(Test_colors ${GTEST_BOTH_LIBRARIES})
 
 add_test(ColorTests Test_colors --gtest_output=xml)

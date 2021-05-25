@@ -2,7 +2,7 @@
 #include <iostream>
 #include <gtest/gtest.h>
 
-#include <cpputils/signal/signal.h>
+#include <signal/signal.h>
 
 
 

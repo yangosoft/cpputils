@@ -1,5 +1,5 @@
 #include <limits.h>
-#include <cpputils/factory/factory.h>
+#include <factory/factory.h>
 #include <gtest/gtest.h>
 namespace
 {

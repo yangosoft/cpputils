@@ -30,7 +30,7 @@ file(GLOB SRCS ${CMAKE_CURRENT_SOURCE_DIR}/test/src/*.cpp)
 message("LIBS ${GTEST_BOTH_LIBRARIES}")
 
 add_executable(Test_graphs ${SRCS})
-
+target_include_directories(Test_graphs PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc)
 target_link_libraries(Test_graphs ${GTEST_BOTH_LIBRARIES})
 
 add_test(GraphsTests Test_graphs --gtest_output=xml)

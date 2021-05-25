@@ -32,7 +32,7 @@ file(GLOB SRCS ${CMAKE_CURRENT_SOURCE_DIR}/test/src/*.cpp)
 message("LIBS  ${SOCKETS_LIBRARIES} ${GTEST_BOTH_LIBRARIES}")
 
 add_executable(Test_sockets ${SRCS})
-
+target_include_directories(Test_sockets PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc)
 target_link_libraries(Test_sockets ${GTEST_BOTH_LIBRARIES} ${SOCKETS_LIBRARIES} ${GNUTLS_LIBRARIES})
 
 add_test(SocketsTests Test_sockets --gtest_output=xml)

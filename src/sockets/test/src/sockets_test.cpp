@@ -1,8 +1,8 @@
 #include <limits.h>
 
-#include <cpputils/sockets/isocket.h>
-#include <cpputils/sockets/socketclient.h>
-#include <cpputils/sockets/socketserver.h>
+#include <sockets/isocket.h>
+#include <sockets/socketclient.h>
+#include <sockets/socketserver.h>
 #include <gtest/gtest.h>
 namespace
 {
