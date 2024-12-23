@@ -1,5 +1,5 @@
 # cpputils
-![cpputils workflow](https://github.com/yangosoft/cpputils/actions/workflows/cpp.yml/badge.svg)
+![cpputils workflow](https://github.com/yangosoft/cpputils/actions/workflows/cmake.yml/badge.svg)
 
 C++14 utilites 
 
