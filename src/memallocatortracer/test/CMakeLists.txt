@@ -1,13 +1,13 @@
 
-cmake_minimum_required(VERSION 3.4)
+cmake_minimum_required(VERSION 3.14)
 
-set(CMAKE_CXX_STANDARD 14)
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pthread")
 
 
 
 enable_testing()
-find_package(GTest REQUIRED)
+include(GoogleTest)
 include_directories( ${memallocatortrace_INCLUDE_DIRS} ${GTEST_INCLUDE_DIRS} "${CMAKE_CURRENT_SOURCE_DIR}/inc" )
 
 
@@ -21,7 +21,7 @@ message("FILES ${SRCS}")
 
 add_executable(Test_memallocatortrace ${SRCS})
 
-target_link_libraries(Test_memallocatortrace ${GTEST_BOTH_LIBRARIES})
+target_link_libraries(Test_memallocatortrace  GTest::gtest_main)
 
 add_test(MemallocatortraceTests Test_memallocatortrace --gtest_output=xml)
 

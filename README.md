@@ -1,6 +1,5 @@
 # cpputils
-
-[![Build Status](https://travis-ci.org/yangosoft/cpputils.svg?branch=master)](https://travis-ci.org/yangosoft/cpputils)
+![cpputils workflow](https://github.com/yangosoft/cpputils/actions/workflows/cpp.yml/badge.svg)
 
 C++14 utilites 
 
@@ -15,6 +14,8 @@ C++14 utilites
 * TCP socket server
 * BTree
 * Colors: RGB and LAB color converters and distance calculation
+* Futex and shared memory futex implementation based on [Eli Bendersky Mutex https://eli.thegreenplace.net/2018/basics-of-futexes/](https://eli.thegreenplace.net/2018/basics-of-futexes/) implementation of the [Ulrich Drepper's Futexes are Tricky paper](https://www.akkadia.org/drepper/futex.pdf)
+* Shared memory wrapper for POSIX
 
 Check examples folder and build them after install CppUtils.
 

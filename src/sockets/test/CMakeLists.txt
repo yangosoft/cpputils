@@ -2,12 +2,12 @@ cmake_minimum_required(VERSION 3.4)
 project(SocketsTest)
 
 
-set(CMAKE_CXX_STANDARD 14)
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pthread")
 
 
 enable_testing()
-find_package(GTest REQUIRED)
+include(GoogleTest)
 
 
 
@@ -29,11 +29,11 @@ include_directories(inc)
 include_directories(${sockets_INCLUDE_DIRS})
 
 file(GLOB SRCS ${CMAKE_CURRENT_SOURCE_DIR}/test/src/*.cpp)
-message("LIBS  ${SOCKETS_LIBRARIES} ${GTEST_BOTH_LIBRARIES}")
+message("LIBS  ${SOCKETS_LIBRARIES}  GTest::gtest_main")
 
 add_executable(Test_sockets ${SRCS})
 target_include_directories(Test_sockets PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc)
-target_link_libraries(Test_sockets ${GTEST_BOTH_LIBRARIES} ${SOCKETS_LIBRARIES} ${GNUTLS_LIBRARIES})
+target_link_libraries(Test_sockets  GTest::gtest_main ${SOCKETS_LIBRARIES} ${GNUTLS_LIBRARIES})
 
 add_test(SocketsTests Test_sockets --gtest_output=xml)
 
