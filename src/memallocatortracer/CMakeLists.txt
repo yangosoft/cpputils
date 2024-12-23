@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.4)
 
 project(MemAllocatorTracer VERSION ${CppUtils_VERSION_MAJOR}.${CppUtils_VERSION_MINOR} LANGUAGES CXX)
 
-
+set(CMAKE_CXX_STANDARD 14)
 
 include (GNUInstallDirs)
 
